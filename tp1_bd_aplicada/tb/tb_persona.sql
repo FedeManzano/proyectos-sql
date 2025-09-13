@@ -18,4 +18,4 @@ BEGIN
     );
 END
 
--- TRUNCATE TABLE [db_tp_bd_aplicada].[negocio].[Persona]
+-- DROP TABLE [db_tp_bd_aplicada].[negocio].[Persona]

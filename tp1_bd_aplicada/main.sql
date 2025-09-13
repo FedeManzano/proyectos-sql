@@ -2,6 +2,12 @@
     BASE DE DATOS (Código de abajo en este archivo)
     ESQUEMAS (Código de abajo en este archivo)
 
+    SCRIPTS
+    _scripts/_crear_tablas.sql
+    _scripts/_crear_localidades.sql
+    _scripts/_crear_tipo_doc.sql
+    _scripts/_crear_registros_personas.sql
+
     TABLAS
     /tb/tb_tipo_doc.sql
     /tb/tb_localidad.sql

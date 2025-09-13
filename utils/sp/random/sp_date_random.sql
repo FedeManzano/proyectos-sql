@@ -17,7 +17,7 @@ BEGIN
         RETURN 0
     
     DECLARE @INTER INT = -1
-    EXEC @INTER = [db_utils].[library].[sp_Str_Number_Random] 0,9,5,NULL 
+    EXEC @INTER = [db_utils].[library].[sp_Str_Number_Random] 0,9,4,NULL 
     SET @FSAL = DATEADD(DAY, @INTER, @FINI)
 END
 
