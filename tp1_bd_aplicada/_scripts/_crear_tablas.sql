@@ -4,8 +4,6 @@ USE db_tp_bd_aplicada -- EJECURAT PRIMERO
     SCRIPT Que crea las tablas y las llena con datos de prueba aleatorios
 */
 
-
-
 BEGIN TRY
     BEGIN TRANSACTION 
     IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '[db_tp_bd_aplicada].[negocio].[Localidad]')
@@ -148,10 +146,11 @@ BEGIN TRY
             ),
 
             CONSTRAINT FK_Persona 
-            FOREIGN KEY(IDTipo, NroDoc) REFERENCES 
-                            [db_tp_bd_aplicada].
-                            [negocio].
-                            [Persona](IDTipo,NroDoc)
+            FOREIGN KEY(IDTipo, NroDoc) 
+            REFERENCES 
+                    [db_tp_bd_aplicada].
+                    [negocio].
+                    [Persona](IDTipo,NroDoc)
 
         );
 
@@ -179,18 +178,18 @@ BEGIN TRY
 
         WHILE @CANT_VEH < 300
         BEGIN 
-            EXEC    [db_utils].
-                    [library].
-                    [sp_Str_letter_Random] 3, 1, @PATENTE_LET OUTPUT
+            EXEC        [db_utils].
+                        [library].
+                        [sp_Str_letter_Random] 3, 1, @PATENTE_LET OUTPUT
 
 
-            EXEC    [db_utils].
-                    [library].
-                    [sp_Str_Number_Random] 0,9,3, @PATENTE_NUM OUTPUT
+            EXEC        [db_utils].
+                        [library].
+                        [sp_Str_Number_Random] 0,9,3, @PATENTE_NUM OUTPUT
 
-            EXEC    [db_utils].
-                    [library].
-                    [sp_Str_letter_Random] 8,1, @MODELO OUTPUT
+            EXEC        [db_utils].
+                        [library].
+                        [sp_Str_letter_Random] 8,1, @MODELO OUTPUT
             
             EXEC @DNI_RAND = [db_utils].
                             [library].
@@ -232,3 +231,93 @@ END TRY
 BEGIN CATCH
     ROLLBACK TRANSACTION
 END CATCH
+
+
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '[db_tp_bd_aplicada].[negocio].[Alumno]' )
+BEGIN 
+    CREATE TABLE [db_tp_bd_aplicada].[negocio].[Alumno]
+    (
+        TipoDoc TINYINT NOT NULL,
+        NroDoc VARCHAR(8) NOT NULL,
+        FechaIng DATE NOT NULL,
+        CONSTRAINT PK_Alumno PRIMARY KEY(TipoDoc, NroDoc),
+        CONSTRAINT FK_Persona FOREIGN KEY(TipoDoc, NroDoc) 
+        REFERENCES [db_tp_bd_aplicada].[negocio].[Persona](IDTipo, NroDoc)
+    )
+
+    DECLARE @TIPO_PERSONA       INT = 0,
+            @TIPO_DOC           TINYINT = 0,
+            @NRO_DOC_ALUMNO     VARCHAR(8) = '',
+            @F_ING              DATE,
+            @CANT               INT = 0
+
+
+
+    DECLARE ClavesPersona CURSOR FOR
+    SELECT NroDoc FROM [negocio].[Persona];
+
+    OPEN ClavesPersona;
+
+
+    FETCH NEXT FROM ClavesPersona INTO @NRO_DOC_ALUMNO;
+    WHILE @@FETCH_STATUS = 0
+    BEGIN
+        EXEC @TIPO_PERSONA = [db_utils].[library].[sp_Str_Number_Random] 1,5,1,NULL
+        
+        SET @TIPO_DOC = 
+        (
+            SELECT IDTipo 
+            FROM 
+                [db_tp_bd_aplicada].
+                [negocio].
+                [Persona] 
+            WHERE NroDoc = @NRO_DOC_ALUMNO
+        )
+
+        IF   @TIPO_PERSONA = 1  OR
+             @TIPO_PERSONA = 2  OR 
+             @TIPO_PERSONA = 3
+        -- Esto es si es alumno
+        BEGIN 
+            EXEC        [db_utils].
+                        [library].
+                        [sp_Date_Random] '1990-01-01', 4, @F_ING OUTPUT
+
+            INSERT INTO [db_tp_bd_aplicada].
+                        [negocio].
+                        [Alumno] (TipoDoc,NroDoc,FechaIng)
+
+            VALUES(@TIPO_DOC, @NRO_DOC_ALUMNO, @F_ING)
+        END -- FIN IF Alumno
+
+        FETCH NEXT FROM ClavesPersona INTO @NRO_DOC_ALUMNO;
+    END
+END
+
+
+/*
+DECLARE @PATENTE_AUX CHAR(7) = ''
+DECLARE CursorVehiculo CURSOR FOR
+SELECT Patente FROM [db_tp_bd_aplicada].[negocio].[Vehiculo]
+
+OPEN CursorVehiculo
+
+FETCH NEXT FROM CursorVehiculo INTO @PATENTE_AUX;
+WHILE @@FETCH_STATUS = 0
+BEGIN 
+    PRINT(@PATENTE_AUX)
+    FETCH NEXT FROM CursorVehiculo INTO @PATENTE_AUX;
+END*/
+/*
+DECLARE @D CHAR(8)
+DECLARE CursorPersona CURSOR FOR
+SELECT NroDoc FROM [db_tp_bd_aplicada].[negocio].[Persona]
+
+OPEN CursorPersona
+
+FETCH NEXT FROM CursorPersona INTO @D 
+WHILE @@FETCH_STATUS = 0
+BEGIN 
+    PRINT(@D)
+    FETCH NEXT FROM CursorPersona INTO @D 
+END*/
