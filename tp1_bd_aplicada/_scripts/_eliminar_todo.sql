@@ -1,6 +1,7 @@
 
 USE master
 
+DROP TABLE [db_tp_bd_aplicada].[negocio].[Docente]
 DROP TABLE [db_tp_bd_aplicada].[negocio].[Alumno]
 DROP TABLE [db_tp_bd_aplicada].[negocio].[Vehiculo]
 DROP TABLE [db_tp_bd_aplicada].[negocio].[Persona]

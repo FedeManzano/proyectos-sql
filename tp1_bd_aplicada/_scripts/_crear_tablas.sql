@@ -224,76 +224,113 @@ BEGIN TRY
 
             SET @CANT_VEH = @CANT_VEH + 1 
         END
+    END
 
+    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '[db_tp_bd_aplicada].[negocio].[Docente]')
+    BEGIN 
+        CREATE TABLE [db_tp_bd_aplicada].[negocio].[Docente]
+        (
+            TipoDoc TINYINT NOT NULL,
+            NroDoc VARCHAR(8) NOT NULL,
+            Cargo VARCHAR(30) NOT NULL,
+            CONSTRAINT PK_Docente PRIMARY KEY(TipoDoc, NroDoc), 
+            CONSTRAINT FK_Persona_Docente FOREIGN KEY(TipoDoc, NroDoc)
+            REFERENCES [db_tp_bd_aplicada].[negocio].[Persona](IDTipo, NroDoc)
+        )
+    END 
+
+    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '[db_tp_bd_aplicada].[negocio].[Alumno]' )
+    BEGIN 
+        CREATE TABLE [db_tp_bd_aplicada].[negocio].[Alumno]
+        (
+            TipoDoc TINYINT NOT NULL,
+            NroDoc VARCHAR(8) NOT NULL,
+            FechaIng DATE NOT NULL,
+            CONSTRAINT PK_Alumno PRIMARY KEY(TipoDoc, NroDoc),
+            CONSTRAINT FK_Persona_Alumno FOREIGN KEY(TipoDoc, NroDoc) 
+            REFERENCES [db_tp_bd_aplicada].[negocio].[Persona](IDTipo, NroDoc)
+        )
+
+
+
+        DECLARE @TIPO_PERSONA       INT = 0,
+                @TIPO_DOC           TINYINT = 0,
+                @NRO_DOC_ALUMNO     VARCHAR(8) = '',
+                @F_ING              DATE,
+                @CANT               INT = 0,
+                @CARGO              VARCHAR(30) = ''
+
+
+
+        DECLARE ClavesPersona CURSOR FOR
+        SELECT NroDoc FROM [negocio].[Persona];
+
+        OPEN ClavesPersona;
+
+
+        FETCH NEXT FROM ClavesPersona INTO @NRO_DOC_ALUMNO;
+        WHILE @@FETCH_STATUS = 0
+        BEGIN
+            EXEC @TIPO_PERSONA = [db_utils].[library].[sp_Str_Number_Random] 1,5,1,NULL
+            
+            SET @TIPO_DOC = 
+            (
+                SELECT IDTipo 
+                FROM [db_tp_bd_aplicada].
+                     [negocio].
+                     [Persona] 
+                WHERE NroDoc = @NRO_DOC_ALUMNO
+            )
+
+            EXEC        [db_utils].
+                        [library].
+                        [sp_Date_Random] '1990-01-01', 4, @F_ING OUTPUT
+
+            IF   @TIPO_PERSONA = 1  OR
+                 @TIPO_PERSONA = 2  OR 
+                 @TIPO_PERSONA = 3
+            -- Esto es si es alumno
+            BEGIN 
+                INSERT INTO [db_tp_bd_aplicada].
+                            [negocio].
+                            [Alumno] (TipoDoc,NroDoc,FechaIng)
+
+                VALUES(@TIPO_DOC, @NRO_DOC_ALUMNO, @F_ING)
+            END -- FIN IF Alumno
+            IF   @TIPO_PERSONA = 4
+            BEGIN 
+                EXEC        [db_utils].
+                            [library].
+                            [sp_Str_letter_Random] 7, 1, @CARGO OUTPUT 
+
+                INSERT INTO [db_tp_bd_aplicada].[negocio].[Docente] (TipoDoc, NroDoc, Cargo)
+                VALUES 
+                (@TIPO_DOC, @NRO_DOC_ALUMNO, @CARGO)
+
+                INSERT INTO [db_tp_bd_aplicada].[negocio].[Alumno] (TipoDoc, NroDoc, FechaIng)
+                VALUES 
+                (@TIPO_DOC, @NRO_DOC_ALUMNO, @F_ING)
+            END
+            IF @TIPO_PERSONA = 5
+            BEGIN 
+                EXEC        [db_utils].
+                            [library].
+                            [sp_Str_letter_Random] 7, 1, @CARGO OUTPUT 
+                
+                INSERT INTO [db_tp_bd_aplicada].
+                            [negocio].
+                            [Docente] (TipoDoc, NroDoc, Cargo)
+                VALUES 
+                (@TIPO_DOC, @NRO_DOC_ALUMNO, @CARGO)
+            END
+            FETCH NEXT FROM ClavesPersona INTO @NRO_DOC_ALUMNO;
+        END
     END
     COMMIT TRANSACTION
 END TRY 
 BEGIN CATCH
     ROLLBACK TRANSACTION
 END CATCH
-
-
-IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '[db_tp_bd_aplicada].[negocio].[Alumno]' )
-BEGIN 
-    CREATE TABLE [db_tp_bd_aplicada].[negocio].[Alumno]
-    (
-        TipoDoc TINYINT NOT NULL,
-        NroDoc VARCHAR(8) NOT NULL,
-        FechaIng DATE NOT NULL,
-        CONSTRAINT PK_Alumno PRIMARY KEY(TipoDoc, NroDoc),
-        CONSTRAINT FK_Persona FOREIGN KEY(TipoDoc, NroDoc) 
-        REFERENCES [db_tp_bd_aplicada].[negocio].[Persona](IDTipo, NroDoc)
-    )
-
-    DECLARE @TIPO_PERSONA       INT = 0,
-            @TIPO_DOC           TINYINT = 0,
-            @NRO_DOC_ALUMNO     VARCHAR(8) = '',
-            @F_ING              DATE,
-            @CANT               INT = 0
-
-
-
-    DECLARE ClavesPersona CURSOR FOR
-    SELECT NroDoc FROM [negocio].[Persona];
-
-    OPEN ClavesPersona;
-
-
-    FETCH NEXT FROM ClavesPersona INTO @NRO_DOC_ALUMNO;
-    WHILE @@FETCH_STATUS = 0
-    BEGIN
-        EXEC @TIPO_PERSONA = [db_utils].[library].[sp_Str_Number_Random] 1,5,1,NULL
-        
-        SET @TIPO_DOC = 
-        (
-            SELECT IDTipo 
-            FROM 
-                [db_tp_bd_aplicada].
-                [negocio].
-                [Persona] 
-            WHERE NroDoc = @NRO_DOC_ALUMNO
-        )
-
-        IF   @TIPO_PERSONA = 1  OR
-             @TIPO_PERSONA = 2  OR 
-             @TIPO_PERSONA = 3
-        -- Esto es si es alumno
-        BEGIN 
-            EXEC        [db_utils].
-                        [library].
-                        [sp_Date_Random] '1990-01-01', 4, @F_ING OUTPUT
-
-            INSERT INTO [db_tp_bd_aplicada].
-                        [negocio].
-                        [Alumno] (TipoDoc,NroDoc,FechaIng)
-
-            VALUES(@TIPO_DOC, @NRO_DOC_ALUMNO, @F_ING)
-        END -- FIN IF Alumno
-
-        FETCH NEXT FROM ClavesPersona INTO @NRO_DOC_ALUMNO;
-    END
-END
-
 
 /*
 DECLARE @PATENTE_AUX CHAR(7) = ''
