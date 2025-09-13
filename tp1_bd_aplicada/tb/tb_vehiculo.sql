@@ -20,3 +20,5 @@ BEGIN
     );
 END
 
+-- TRUNCATE TABLE [db_tp_bd_aplicada].[negocio].[Vehiculo]
+-- DROP TABLE [db_tp_bd_aplicada].[negocio].[Vehiculo]

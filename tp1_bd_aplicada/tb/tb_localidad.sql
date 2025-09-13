@@ -11,4 +11,5 @@ BEGIN
     );
 END
 
+-- TRUNCATE TABLE [db_tp_bd_aplicada].[negocio].[Localidad]
 -- DROP TABLE [db_tp_bd_aplicada].[negocio].[Localidad]

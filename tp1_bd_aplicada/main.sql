@@ -1,4 +1,10 @@
 /***
+
+    PRIORIDAD
+    Abrir el proyecto db_utils y crear la base de datos con todos 
+    los elementos como se describe en la documentación
+
+
     BASE DE DATOS (Código de abajo en este archivo)
     ESQUEMAS (Código de abajo en este archivo)
 
@@ -7,6 +13,8 @@
 
     SCRIPTS
     _scripts/_crear_tablas.sql (Está todo ell lote de prueba)
+
+
 
     TABLAS
     /tb/tb_tipo_doc.sql

@@ -4,9 +4,10 @@ USE db_tp_bd_aplicada -- EJECURAT PRIMERO
     SCRIPT Que crea las tablas y las llena con datos de prueba aleatorios
 */
 
-BEGIN TRANSACTION 
+
 
 BEGIN TRY
+    BEGIN TRANSACTION 
     IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '[db_tp_bd_aplicada].[negocio].[Localidad]')
     BEGIN
         CREATE TABLE [db_tp_bd_aplicada].[negocio].[Localidad]
@@ -121,7 +122,7 @@ BEGIN TRY
 
             EXEC [db_utils].
                 [library].
-                [sp_Date_Random] '1980-02-01', @FNAC OUTPUT
+                [sp_Date_Random] '1980-02-01', 4, @FNAC OUTPUT
 
 
             INSERT INTO [db_tp_bd_aplicada].[negocio].[Persona] (IDTipo, NroDoc, Nombre, Apellido, IdLocalidad, FNac)
@@ -130,7 +131,6 @@ BEGIN TRY
 
             SET @CANT_PERSONAS = @CANT_PERSONAS + 1
         END
-
     END
 
 
