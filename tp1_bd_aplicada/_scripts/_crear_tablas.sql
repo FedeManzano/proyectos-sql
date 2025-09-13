@@ -1,9 +1,8 @@
-USE db_tp_bd_aplicada -- EJECURAT PRIMERO
+USE db_tp_bd_aplicada -- EJECUTAR PRIMERO
 
 /**
     SCRIPT Que crea las tablas y las llena con datos de prueba aleatorios
 */
-
 BEGIN TRY
     BEGIN TRANSACTION -- Comienza la transacción
                       -- Bloqueo Exclusivo porque se realizan modificaciones
@@ -405,6 +404,35 @@ BEGIN TRY
             FETCH NEXT FROM ClavesPersona INTO @NRO_DOC_ALUMNO;
         END
     END
+
+    ---- TABLA Materia -------------------------------------------------------------------------------------------
+    IF NOT EXISTS 
+    (
+        SELECT 1 
+        FROM INFORMATION_SCHEMA.TABLES 
+        WHERE TABLE_NAME = '[db_tp_bd_aplicada].[negocio].[Materia]'
+    )
+    BEGIN 
+        CREATE TABLE [db_tp_bd_aplicada].[negocio].[Materia]
+        (
+            CodMAteria CHAR(4) PRIMARY KEY,
+            Nombre VARCHAR(40) NOT NULL
+        )
+
+        INSERT INTO [db_tp_bd_aplicada].[negocio].[Materia](CodMAteria, Nombre)
+        VALUES 
+        ('2930', 'Sistemas Operativos'),
+        ('2931', 'Analisis de Software'),
+        ('2932', 'Principios de Calidad'),
+        ('2933', 'Bases de Datos'),
+        ('2934', 'Analisis Matemático'),
+        ('2935', 'Analisis Matemático 2'),
+        ('2936', 'Algebra I'),
+        ('2937', 'Algebra II'),
+        ('2938', 'Algebra III'),
+        ('2939', 'Virtualización'),
+        ('2940', 'Diseño de Sistemas')
+    END
     COMMIT TRANSACTION
 END TRY 
 BEGIN CATCH
@@ -437,3 +465,5 @@ BEGIN
     PRINT(@D)
     FETCH NEXT FROM CursorPersona INTO @D 
 END*/
+
+SELECT * FROM [db_tp_bd_aplicada].[negocio].[Materia]

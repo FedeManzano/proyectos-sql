@@ -14,4 +14,6 @@ BEGIN
     )
 END 
 
+-- TRUNCATE TABLE [db_tp_bd_aplicada].[negocio].[Docente]
+-- DROP TABLE [db_tp_bd_aplicada].[negocio].[Docente]
 

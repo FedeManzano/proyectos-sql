@@ -1,5 +1,4 @@
 /***
-
     PRIORIDAD
     Abrir el proyecto db_utils y crear la base de datos con todos 
     los elementos como se describe en la documentación
