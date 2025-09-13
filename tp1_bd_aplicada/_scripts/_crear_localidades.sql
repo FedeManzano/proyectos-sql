@@ -1,3 +1,4 @@
+USE db_tp_bd_aplicada
 
 INSERT INTO [db_tp_bd_aplicada].[negocio].[Localidad](Nombre)
 VALUES 
