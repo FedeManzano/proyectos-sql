@@ -1,5 +1,9 @@
 USE db_tp_bd_aplicada -- EJECURAT PRIMERO
 
+/**
+    SCRIPT Que crea las tablas y las llena con datos de prueba aleatorios
+*/
+
 BEGIN TRANSACTION 
 
 BEGIN TRY
