@@ -5,8 +5,18 @@ USE db_tp_bd_aplicada -- EJECURAT PRIMERO
 */
 
 BEGIN TRY
-    BEGIN TRANSACTION 
-    IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '[db_tp_bd_aplicada].[negocio].[Localidad]')
+    BEGIN TRANSACTION -- Comienza la transacción
+                      -- Bloqueo Exclusivo porque se realizan modificaciones
+                      -- Transacción larga de muchas operaciones (No recomendado LOCK SCALATION)  
+
+    -- TABLA LOCALIDAD ---------------------------------------------------------------------------------------
+    -- Si la tabla Localidad no existe la crea
+    IF NOT EXISTS 
+    (
+        SELECT * 
+        FROM INFORMATION_SCHEMA.TABLES 
+        WHERE TABLE_NAME = '[db_tp_bd_aplicada].[negocio].[Localidad]'
+    )
     BEGIN
         CREATE TABLE [db_tp_bd_aplicada].[negocio].[Localidad]
         (
@@ -24,10 +34,16 @@ BEGIN TRY
         ('El Palomar'),
         ('Merlo'),
         ('Villa Urquiza')
-    END
+    END -- Termina la creación de la tabla localidad
 
 
-    IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '[db_tp_bd_aplicada].[negocio].[Tipo_Doc]')
+    -- TABLA TIPO_DOC ---------------------------------------------------------------------------------------
+    IF NOT EXISTS 
+    (
+        SELECT * 
+        FROM INFORMATION_SCHEMA.TABLES 
+        WHERE TABLE_NAME = '[db_tp_bd_aplicada].[negocio].[Tipo_Doc]'
+    )
     BEGIN
         CREATE TABLE [db_tp_bd_aplicada].[negocio].[Tipo_Doc]
         (
@@ -46,10 +62,15 @@ BEGIN TRY
         (1, 'DNI'),
         (2, 'LC'),
         (3, 'CAR')
-    END
+    END -- Termina la creación de la tabla tipo_doc
 
-
-    IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '[db_tp_bd_aplicada].[negocio].[Persona]')
+    -- TABLA Persona ---------------------------------------------------------------------------------------
+    IF NOT EXISTS 
+    (
+        SELECT * 
+        FROM INFORMATION_SCHEMA.TABLES 
+        WHERE TABLE_NAME = '[db_tp_bd_aplicada].[negocio].[Persona]'
+    )
     BEGIN
         CREATE TABLE [db_tp_bd_aplicada].[negocio].[Persona] 
         (
@@ -64,8 +85,7 @@ BEGIN TRY
             CONSTRAINT FK_Localidad FOREIGN KEY(IdLocalidad) REFERENCES  [db_tp_bd_aplicada].[negocio].[Localidad]
         );
 
-
-        
+        -- Define la cantidad actual de personas procesadas
         DECLARE @CANT_PERSONAS INT = 0 -- 1100 Personas random
 
         DECLARE @NRO_DOC CHAR(8) = '',
@@ -73,8 +93,10 @@ BEGIN TRY
                 @APELLIDO VARCHAR(30),
                 @FNAC DATE
 
-        DECLARE @LOC_RAND INT,
-                @TIPO_RAND INT,
+        DECLARE @LOC_RAND INT,  -- Guarda el ID random de localidad (1 - 8)
+                @TIPO_RAND INT, -- Guarda el ID random de tipo_doc (1 - 3)
+
+                -- CANTIDAD TOTAL DE LOCALIDADES
                 @CANT_LOC INT =
                 (
                     SELECT COUNT(*)
@@ -82,6 +104,8 @@ BEGIN TRY
                         [negocio].
                         [Localidad]  
                 ),
+
+                -- CANTIDAD TOTAL DE TIPOS DE DOCUMENTO
                 @CANT_TIPO INT = 
                 (
                     SELECT COUNT(*)
@@ -92,59 +116,69 @@ BEGIN TRY
 
         WHILE @CANT_PERSONAS < 1100
         BEGIN 
-            DECLARE @NRO_RAND INT
-            EXEC @TIPO_RAND = [db_utils].[library].[sp_Str_Number_Random] 1,3,1,NULL
-            
+            -- Localidad ID 1 - 8
             EXEC @LOC_RAND =  
                     [db_utils].
                     [library].
                     [sp_Str_Number_Random] 1, @CANT_LOC, 1, NULL
 
+            -- Tipo doc ID 1,2,3            
             EXEC @TIPO_RAND =  
                     [db_utils].
                     [library].
                     [sp_Str_Number_Random] 1, @CANT_TIPO, 1, NULL
             
-            EXEC [db_utils].
-                [library].
-                [sp_Str_letter_Random] 8, 1,@NOMBRE  OUTPUT
+            -- Genera un nombre aleatorio
+            EXEC    [db_utils].
+                    [library].
+                    [sp_Str_letter_Random] 8, 1,@NOMBRE  OUTPUT
             
-            EXEC [db_utils].
-                [library].
-                [sp_Str_letter_Random] 8, 1, @APELLIDO OUTPUT
+            -- Genera un apellido aleatorio
+            EXEC    [db_utils].
+                    [library].
+                    [sp_Str_letter_Random] 8, 1, @APELLIDO OUTPUT
             
-            EXEC [db_tp_bd_aplicada].
-                [negocio].
-                [sp_Crear_Dni_Aleatorio] @NRO_DOC OUTPUT
+            -- Genera un DNI aleatorio
+            EXEC    [db_tp_bd_aplicada].
+                    [negocio].
+                    [sp_Crear_Dni_Aleatorio] @NRO_DOC OUTPUT
 
+            -- Genera un una fecha aleatoria a partir de la fecha 1980-02-01
+            EXEC    [db_utils].
+                    [library].
+                    [sp_Date_Random] '1980-02-01', 4, @FNAC OUTPUT
 
-            EXEC [db_utils].
-                [library].
-                [sp_Date_Random] '1980-02-01', 4, @FNAC OUTPUT
-
-
+            -- INSERTA A LA PERSONA
             INSERT INTO [db_tp_bd_aplicada].[negocio].[Persona] (IDTipo, NroDoc, Nombre, Apellido, IdLocalidad, FNac)
             VALUES
             (@TIPO_RAND, @NRO_DOC, @NOMBRE, @APELLIDO, @LOC_RAND, @FNAC)
 
+            -- CONTADOR TERMPORAL DE PERSONAS
             SET @CANT_PERSONAS = @CANT_PERSONAS + 1
         END
-    END
+    END -- FIN INGRESO 1100 Personas
 
 
-    IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '[db_tp_bd_aplicada].[negocio].[Vehiculo]')
+    ---- TABLA Vehiculo -------------------------------------------------------------------------------------------
+    IF NOT EXISTS 
+    (
+        SELECT * 
+        FROM INFORMATION_SCHEMA.TABLES 
+        WHERE TABLE_NAME = '[db_tp_bd_aplicada].[negocio].[Vehiculo]'
+    )
     BEGIN
+
+        /**
+            TABLA Vehículos con sus restricciones
+        */
         CREATE TABLE [db_tp_bd_aplicada].[negocio].[Vehiculo]
         (
-            Patente VARCHAR(7) PRIMARY KEY,
-            Modelo VARCHAR(30) NOT NULL,
-            IDTipo TINYINT NOT NULL,
-            NroDoc VARCHAR(8) NOT NULL,
-            CONSTRAINT CK_Patente CHECK
-            (
-                Patente NOT LIKE '[A-Z0-9 ]'
-            ),
+            Patente     VARCHAR(7) PRIMARY KEY,
+            Modelo      VARCHAR(30) NOT NULL,
+            IDTipo      TINYINT NOT NULL,
+            NroDoc      VARCHAR(8) NOT NULL,
 
+            -- Restricción de personas, C/ Vehículo es de una persona
             CONSTRAINT FK_Persona 
             FOREIGN KEY(IDTipo, NroDoc) 
             REFERENCES 
@@ -154,6 +188,7 @@ BEGIN TRY
 
         );
 
+        --- Tabla Variable en memoria PERSONAS
         DECLARE @PERSONAS TABLE 
         (
             ID INT IDENTITY(1,1) PRIMARY KEY,
@@ -178,28 +213,33 @@ BEGIN TRY
 
         WHILE @CANT_VEH < 300
         BEGIN 
-            EXEC        [db_utils].
-                        [library].
-                        [sp_Str_letter_Random] 3, 1, @PATENTE_LET OUTPUT
+            EXEC                [db_utils].
+                                [library].
+                                [sp_Str_letter_Random] 3, 1, @PATENTE_LET OUTPUT
 
 
-            EXEC        [db_utils].
-                        [library].
-                        [sp_Str_Number_Random] 0,9,3, @PATENTE_NUM OUTPUT
+            EXEC                [db_utils].
+                                [library].
+                                [sp_Str_Number_Random] 0,9,3, @PATENTE_NUM OUTPUT
 
-            EXEC        [db_utils].
-                        [library].
-                        [sp_Str_letter_Random] 8,1, @MODELO OUTPUT
+            EXEC                [db_utils].
+                                [library].
+                                [sp_Str_letter_Random] 8,1, @MODELO OUTPUT
             
-            EXEC @DNI_RAND = [db_utils].
-                            [library].
-                            [sp_Str_Number_Random] 1,9,3, NULL
-
-            
+            EXEC @DNI_RAND =    [db_utils].
+                                [library].
+                                [sp_Str_Number_Random] 1,9,3, NULL
 
             SET @PATENTE = @PATENTE_LET + ' ' + @PATENTE_NUM
 
-            WHILE EXISTS (SELECT 1 FROM [db_tp_bd_aplicada].[negocio].[Vehiculo] WHERE Patente = @PATENTE)
+            WHILE EXISTS 
+            (
+                SELECT  1 
+                FROM    [db_tp_bd_aplicada].
+                        [negocio].
+                        [Vehiculo] 
+                WHERE Patente = @PATENTE
+            )
             BEGIN 
                 EXEC    [db_utils].
                         [library].
@@ -212,8 +252,19 @@ BEGIN TRY
                 SET @PATENTE = @PATENTE_LET + ' ' + @PATENTE_NUM
             END
 
-            SET @DNI = (SELECT NroDoc FROM @PERSONAS WHERE ID = @DNI_RAND)
-            SET @TIPO = (SELECT TipoDoc FROM @PERSONAS WHERE ID = @DNI_RAND)
+            SET @DNI = 
+            (
+                SELECT NroDoc 
+                FROM @PERSONAS 
+                WHERE ID = @DNI_RAND
+            )
+
+            SET @TIPO = 
+            (
+                SELECT TipoDoc 
+                FROM @PERSONAS 
+                WHERE ID = @DNI_RAND
+            )
 
             INSERT INTO [db_tp_bd_aplicada].
                         [negocio].
@@ -226,20 +277,47 @@ BEGIN TRY
         END
     END
 
-    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '[db_tp_bd_aplicada].[negocio].[Docente]')
+
+    ---- TABLA Docente -------------------------------------------------------------------------------------------
+    IF NOT EXISTS 
+    (
+        SELECT 1 
+        FROM INFORMATION_SCHEMA.TABLES 
+        WHERE TABLE_NAME = '[db_tp_bd_aplicada].[negocio].[Docente]'
+    )
     BEGIN 
         CREATE TABLE [db_tp_bd_aplicada].[negocio].[Docente]
         (
             TipoDoc TINYINT NOT NULL,
             NroDoc VARCHAR(8) NOT NULL,
             Cargo VARCHAR(30) NOT NULL,
-            CONSTRAINT PK_Docente PRIMARY KEY(TipoDoc, NroDoc), 
-            CONSTRAINT FK_Persona_Docente FOREIGN KEY(TipoDoc, NroDoc)
-            REFERENCES [db_tp_bd_aplicada].[negocio].[Persona](IDTipo, NroDoc)
+            CONSTRAINT PK_Docente PRIMARY KEY
+            (
+                TipoDoc, 
+                NroDoc
+            ), 
+            CONSTRAINT FK_Persona_Docente FOREIGN KEY
+            (
+                TipoDoc, 
+                NroDoc
+            )
+            REFERENCES  [db_tp_bd_aplicada].
+                        [negocio].
+                        [Persona]
+                        (
+                            IDTipo, 
+                            NroDoc
+                        )
         )
     END 
 
-    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '[db_tp_bd_aplicada].[negocio].[Alumno]' )
+    ---- TABLA Alumno -------------------------------------------------------------------------------------------
+    IF NOT EXISTS 
+    (
+        SELECT 1 
+        FROM INFORMATION_SCHEMA.TABLES 
+        WHERE TABLE_NAME = '[db_tp_bd_aplicada].[negocio].[Alumno]' 
+    )
     BEGIN 
         CREATE TABLE [db_tp_bd_aplicada].[negocio].[Alumno]
         (
@@ -251,8 +329,6 @@ BEGIN TRY
             REFERENCES [db_tp_bd_aplicada].[negocio].[Persona](IDTipo, NroDoc)
         )
 
-
-
         DECLARE @TIPO_PERSONA       INT = 0,
                 @TIPO_DOC           TINYINT = 0,
                 @NRO_DOC_ALUMNO     VARCHAR(8) = '',
@@ -260,14 +336,11 @@ BEGIN TRY
                 @CANT               INT = 0,
                 @CARGO              VARCHAR(30) = ''
 
-
-
         DECLARE ClavesPersona CURSOR FOR
         SELECT NroDoc FROM [negocio].[Persona];
 
         OPEN ClavesPersona;
-
-
+        
         FETCH NEXT FROM ClavesPersona INTO @NRO_DOC_ALUMNO;
         WHILE @@FETCH_STATUS = 0
         BEGIN
@@ -276,9 +349,9 @@ BEGIN TRY
             SET @TIPO_DOC = 
             (
                 SELECT IDTipo 
-                FROM [db_tp_bd_aplicada].
-                     [negocio].
-                     [Persona] 
+                FROM    [db_tp_bd_aplicada].
+                        [negocio].
+                        [Persona] 
                 WHERE NroDoc = @NRO_DOC_ALUMNO
             )
 
@@ -303,13 +376,19 @@ BEGIN TRY
                             [library].
                             [sp_Str_letter_Random] 7, 1, @CARGO OUTPUT 
 
-                INSERT INTO [db_tp_bd_aplicada].[negocio].[Docente] (TipoDoc, NroDoc, Cargo)
+                INSERT INTO 
+                            [db_tp_bd_aplicada].
+                            [negocio].
+                            [Docente] (TipoDoc, NroDoc, Cargo)
                 VALUES 
-                (@TIPO_DOC, @NRO_DOC_ALUMNO, @CARGO)
+                    (@TIPO_DOC, @NRO_DOC_ALUMNO, @CARGO)
 
-                INSERT INTO [db_tp_bd_aplicada].[negocio].[Alumno] (TipoDoc, NroDoc, FechaIng)
+                INSERT INTO 
+                            [db_tp_bd_aplicada].
+                            [negocio].
+                            [Alumno] (TipoDoc, NroDoc, FechaIng)
                 VALUES 
-                (@TIPO_DOC, @NRO_DOC_ALUMNO, @F_ING)
+                    (@TIPO_DOC, @NRO_DOC_ALUMNO, @F_ING)
             END
             IF @TIPO_PERSONA = 5
             BEGIN 

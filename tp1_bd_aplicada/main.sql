@@ -43,5 +43,4 @@ IF NOT EXISTS (SELECT 1 FROM sys.schemas WHERE name = 'test')
 BEGIN 
     EXEC('CREATE SCHEMA test')
 END
-
 ---------------------------------------------------------------------------------
