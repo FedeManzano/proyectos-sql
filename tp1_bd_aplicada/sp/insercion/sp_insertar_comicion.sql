@@ -15,12 +15,23 @@ BEGIN
 
     IF [db_utils].[library].[fn_Validate_Dni](@NRO_DOC) = 0
         RETURN 0 -- DNI Inválido
+
+    IF NOT EXISTS
+    (
+        SELECT 1
+        FROM [db_tp_bd_aplicada].[negocio].[Tipo_Doc]
+        WHERE IDTipo = @TIPO_DOC
+    ) 
+        RETURN 0 -- Tipo Doc Inválido
+
     IF NOT EXISTS 
     (
-        SELECT 1 FROM [db_tp_bd_aplicada].[negocio].[Tipo_Doc]
-        WHERE IDTipo = @TIPO_DOC
-    )  
-    RETURN 0 -- Tipo Doc Inválido
+        SELECT 1
+        FROM [db_tp_bd_aplicada].[negocio].[Materia]
+        WHERE CodMAteria = @COD_MAT
+    ) 
+        RETURN 0
+
 
     IF EXISTS 
     (
@@ -33,6 +44,8 @@ BEGIN
                 @CUAT     = Cuatrimestre    AND 
                 @ANO      = Año   
     )
-    RETURN 0 -- Comisión repetida
+    RETURN 0 -- Comisión repetida    
 END
+
+
 

@@ -10,4 +10,5 @@ BEGIN
     )
 END
 
+-- TRUNCATE TABLE [db_tp_bd_aplicada].[negocio].[Dia_Semana]
 -- DROP TABLE [db_tp_bd_aplicada].[negocio].[Dia_Semana]
