@@ -2,6 +2,20 @@
    Funcionalidades reutilizables para colaborar con los diseños de otras bases de datos
 
 */
+/*
+   1 - CREAR LA BASE DE DATOS Y LOS ESQUEMAS
+   
+   2 - FN
+   /fn/fn_validate_dni.sql
+   /fn/fn_validate_email.sql
+
+   3 - SP
+   /sp/format/sp_format_tittle.sql
+   /sp/random/sp_date_random
+   /sp/random/sp_letter_random
+   /sp/random/sp_number_random
+*/
+
 
 ----------- PRIMERO
 USE master 
@@ -26,13 +40,3 @@ BEGIN
 END 
 ---------------------------------------------------------------------
 
-/*
-   PRIMERO 
-   FN
-   /fn/fn_validate_dni.sql
-   /fn/fn_validate_email.sql
-
-   SP
-   /sp/format/sp_format_tittle.sql
-   /sp/random/sp_date_random
-*/

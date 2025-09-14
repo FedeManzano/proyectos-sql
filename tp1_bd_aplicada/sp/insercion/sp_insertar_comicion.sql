@@ -30,8 +30,27 @@ BEGIN
         FROM [db_tp_bd_aplicada].[negocio].[Materia]
         WHERE CodMAteria = @COD_MAT
     ) 
-        RETURN 0
+        RETURN 2
 
+    IF NOT EXISTS 
+    (
+        SELECT 1
+        FROM [db_tp_bd_aplicada].[negocio].[Docente]
+        WHERE TipoDoc = @TIPO_DOC AND NroDoc = @NRO_DOC
+    )
+        RETURN 4
+
+    IF NOT EXISTS
+    (
+        SELECT 1 
+        FROM [db_tp_bd_aplicada].[negocio].[Materia]
+        WHERE @COD_MAT = CodMAteria
+    )
+        RETURN 5
+
+
+    IF @TURNO <> 'TM' AND @TURNO <> 'TN' AND @TURNO <> 'TT'
+        RETURN 6
 
     IF EXISTS 
     (
@@ -42,10 +61,68 @@ BEGIN
                 @COD_MAT  = CodMateria      AND 
                 @TURNO    = Turno           AND 
                 @CUAT     = Cuatrimestre    AND 
-                @ANO      = Año   
+                @ANO      = Año             AND
+                @D_SEM    = DiaSemana  
     )
-    RETURN 0 -- Comisión repetida    
+        RETURN 7 -- Comisión repetida   
+    
+    IF @ANO < 1900 
+        RETURN 8
+
+    DECLARE @NRO_COM INT = 
+    (
+        SELECT ISNULL(MAX(NroComision), -1)
+        FROM    [db_tp_bd_aplicada].
+                [negocio].
+                [Comision]
+        WHERE   @COD_MAT  = CodMateria      AND 
+                @TURNO    <> Turno           OR 
+                @CUAT     <> Cuatrimestre    OR 
+                @ANO      <> Año
+    )
+
+    IF @NRO_COM = -1
+        SET @NRO_COM = 1
+    ELSE 
+        SET @NRO_COM = @NRO_COM + 1
+
+    INSERT INTO [db_tp_bd_aplicada].[negocio].[Comision] 
+    (
+        NroComision, 
+        CodMateria, 
+        TipoDocDocente, 
+        NroDocDocente, 
+        Turno, 
+        Cuatrimestre, 
+        Año,
+        DiaSemana
+    )
+    VALUES 
+    (
+        @NRO_COM,
+        @COD_MAT,
+        @TIPO_DOC,
+        @NRO_DOC,
+        @TURNO,
+        @CUAT,
+        @ANO,
+        @D_SEM
+    )
+
+
+    RETURN 1
 END
 
+DECLARE @RET INT = 0
+EXEC @RET = [db_tp_bd_aplicada].[negocio].[sp_Insertar_Comision] 1,'12898081','2933','TM',2,2,2025
+SELECT @RET
+
+SELECT *
+FROM [db_tp_bd_aplicada].[negocio].[Docente]
+WHERE TipoDoc = 1 AND NroDoc = '12898081'
+SELECT * FROM negocio.Docente
+
+SELECT * FROM [negocio].Comision
 
 
+EXEC [db_tp_bd_aplicada].[negocio].[sp_Insertar_Comision] 1,'12898081','2933','TM',1,3,2026
