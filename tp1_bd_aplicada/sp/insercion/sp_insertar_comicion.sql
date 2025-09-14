@@ -47,10 +47,17 @@ BEGIN
         WHERE @COD_MAT = CodMAteria
     )
         RETURN 5
+    IF NOT EXISTS 
+    (
+        SELECT 1
+        FROM [db_tp_bd_aplicada].[negocio].[Dia_Semana]
+        WHERE @D_SEM = CodDia
+    )
+        RETURN 6
 
 
     IF @TURNO <> 'TM' AND @TURNO <> 'TN' AND @TURNO <> 'TT'
-        RETURN 6
+        RETURN 7
 
     IF EXISTS 
     (
@@ -64,10 +71,10 @@ BEGIN
                 @ANO      = Año             AND
                 @D_SEM    = DiaSemana  
     )
-        RETURN 7 -- Comisión repetida   
+        RETURN 8 -- Comisión repetida   
     
     IF @ANO < 1900 
-        RETURN 8
+        RETURN 9
 
     DECLARE @NRO_COM INT = 
     (
