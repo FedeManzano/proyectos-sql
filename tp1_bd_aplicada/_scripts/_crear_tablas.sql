@@ -2,6 +2,10 @@ USE db_tp_bd_aplicada -- EJECUTAR PRIMERO
 
 /**
     SCRIPT Que crea las tablas y las llena con datos de prueba aleatorios
+    Este archivo no sigue las buenas prácticas de programación, es solo para crear
+    las tablas y cargarlas de información de prueba. 
+    Las tablas tienen que ser creadas individualmente desde los archivos pertenecientes
+    al path /tb/ dentro de este proyecto.
 */
 BEGIN TRY
     BEGIN TRANSACTION -- Comienza la transacción
@@ -433,6 +437,28 @@ BEGIN TRY
         ('2939', 'Virtualización'),
         ('2940', 'Diseño de Sistemas')
     END
+
+
+    ---- TABLA Dia_Semana -------------------------------------------------------------------------------------------
+    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '[db_tp_bd_aplicada].[negocio].[Dia_Semana]' )
+    BEGIN 
+        CREATE TABLE [db_tp_bd_aplicada].[negocio].[Dia_Semana]
+        (
+            CodDia TINYINT IDENTITY(1,1) PRIMARY KEY,
+            Nombre VARCHAR(15) NOT NULL 
+        )
+
+        INSERT INTO [db_tp_bd_aplicada].[negocio].[Dia_Semana]( Nombre)
+        VALUES 
+        ('Lunes'),
+        ('Martes'),
+        ('Miércoles'),
+        ('Jueves'),
+        ('Viernes'),
+        ('Sábado'),
+        ('Domingo')
+    END
+
     COMMIT TRANSACTION
 END TRY 
 BEGIN CATCH
@@ -466,4 +492,4 @@ BEGIN
     FETCH NEXT FROM CursorPersona INTO @D 
 END*/
 
-SELECT * FROM [db_tp_bd_aplicada].[negocio].[Materia]
+--SELECT * FROM [db_tp_bd_aplicada].[negocio].[Dia_Semana]

@@ -8,16 +8,6 @@ BEGIN
         CodDia TINYINT IDENTITY(1,1) PRIMARY KEY,
         Nombre VARCHAR(15) NOT NULL 
     )
-
-    INSERT INTO [db_tp_bd_aplicada].[negocio].[Dia_Semana]( Nombre)
-    VALUES 
-    ('Lunes'),
-    ('Martes'),
-    ('Miércoles'),
-    ('Jueves'),
-    ('Viernes'),
-    ('Sábado'),
-    ('Domingo')
 END
 
 -- DROP TABLE [db_tp_bd_aplicada].[negocio].[Dia_Semana]
