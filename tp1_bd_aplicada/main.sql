@@ -9,13 +9,14 @@
 
     PROCEDIMINETOS
     sp\random\sp_crear_dni_aleatorio.sql (Crear dni aleatorios)
+    sp\insercion\sp_insertar_comision.sql
 
-    SCRIPTS
+    SCRIPTS (Sólo para probar)
     _scripts/_crear_tablas.sql (Está todo ell lote de prueba)
 
 
 
-    TABLAS
+    TABLAS (Para generar BD Vacía)
     /tb/tb_tipo_doc.sql
     /tb/tb_localidad.sql
     /tb/tb_persona.sql
