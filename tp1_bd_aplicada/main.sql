@@ -1,22 +1,22 @@
 /***
-    PRIORIDAD
-    Abrir el proyecto db_utils y crear la base de datos con todos 
+    1 - PRIORIDAD
+    Abrir el proyecto (db_utils 'DEPENDENCIAS') y crear la base de datos con todos 
     los elementos como se describe en la documentación
 
-
-    BASE DE DATOS (Código de abajo en este archivo)
+    2 - BASE DE DATOS (Código de abajo en este archivo)
     ESQUEMAS (Código de abajo en este archivo)
 
-    PROCEDIMINETOS
+    3 - PROCEDIMINETOS
     sp\random\sp_crear_dni_aleatorio.sql (Crear dni aleatorios)
     sp\insercion\sp_insertar_comision.sql
 
-    SCRIPTS (Sólo para probar)
+    4 - FUNCIONES
+    /fn/fn_selector_turnos.sql
+
+    5 - SCRIPTS (Sólo para probar)
     _scripts/_crear_tablas.sql (Está todo ell lote de prueba)
 
-
-
-    TABLAS (Para generar BD Vacía)
+    6(OPCIONAL) - TABLAS (Para generar BD Vacía)
     /tb/tb_tipo_doc.sql
     /tb/tb_localidad.sql
     /tb/tb_persona.sql
