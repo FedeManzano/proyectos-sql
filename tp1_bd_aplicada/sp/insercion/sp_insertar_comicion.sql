@@ -113,16 +113,12 @@ BEGIN
     RETURN 1
 END
 
+/*
+SELECT * FROM [negocio].Comision
+
 DECLARE @RET INT = 0
 EXEC @RET = [db_tp_bd_aplicada].[negocio].[sp_Insertar_Comision] 1,'12898081','2933','TM',2,2,2025
 SELECT @RET
 
-SELECT *
-FROM [db_tp_bd_aplicada].[negocio].[Docente]
-WHERE TipoDoc = 1 AND NroDoc = '12898081'
-SELECT * FROM negocio.Docente
-
-SELECT * FROM [negocio].Comision
-
-
-EXEC [db_tp_bd_aplicada].[negocio].[sp_Insertar_Comision] 1,'12898081','2933','TM',1,3,2026
+EXEC [db_tp_bd_aplicada].[negocio].[sp_Insertar_Comision] 1,'12898081','2933','TM',1,3,2026 
+*/
