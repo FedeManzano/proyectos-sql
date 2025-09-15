@@ -1,6 +1,7 @@
 USE db_tp_bd_aplicada
 
 GO
+-- POR AGREGACIÓN 
 CREATE OR ALTER VIEW [negocio].[vw_Inscripciones_Superpuestas]
 AS 
     (
@@ -34,6 +35,7 @@ GO
 SELECT * FROM [negocio].[vw_Inscripciones_Superpuestas]
 
 GO
+-- POR VENTANA
 WITH Superposicion_Inscripciones (DNI, DIA, AÑO, TURNO, CANT_SUP)
 AS 
 (
@@ -61,4 +63,4 @@ AS
 
 )
 
-SELECT*  FROM Superposicion_Inscripciones WHERE CANT_SUP > 1 
+SELECT * FROM Superposicion_Inscripciones WHERE CANT_SUP > 1 

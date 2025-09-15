@@ -47,7 +47,6 @@ BEGIN
 END
 ---------------------------------------------------------------------------------
 
-
 /*
 SELECT <columnas no pivotadas>, [valor1], [valor2] -- ..., [valorN]
 FROM
