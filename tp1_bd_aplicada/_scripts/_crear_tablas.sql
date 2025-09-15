@@ -1,4 +1,4 @@
-USE db_tp_bd_aplicada -- EJECUTAR PRIMERO
+USE db_tp_bd_aplicada 
 /*
 SCRIPT Que crea las tablas y las llena con datos de prueba aleatorios
 Este archivo no sigue las buenas prácticas de programación, es solo para crear
@@ -6,7 +6,6 @@ las tablas y cargarlas de información de prueba.
 Las tablas tienen que ser creadas individualmente desde los archivos pertenecientes
 al path /tb/ dentro de este proyecto.
 */
-
 
 IF NOT EXISTS 
 (
@@ -445,9 +444,12 @@ BEGIN
     INSERT INTO @MATERIAS_COMISION (CodMateria)
     SELECT CodMateria
     FROM [db_tp_bd_aplicada].[negocio].[Materia]
+
     DECLARE CURSOR_DOCENTES CURSOR FOR
     SELECT NroDoc 
     FROM [db_tp_bd_aplicada].[negocio].[Docente]
+
+
     OPEN CURSOR_DOCENTES
     FETCH NEXT FROM CURSOR_DOCENTES INTO @NRO_DOC_COMISION    
    
@@ -477,6 +479,7 @@ BEGIN
                 WHERE ID = @ENTERO_RANDOM
             )
         END
+        
         EXEC @ENTERO_RANDOM = [db_utils].[library].[sp_Str_Number_Random] 1,3,1,NULL
         SET @TURNO_COMISION = [db_tp_bd_aplicada].[negocio].[fn_Selector_Turno](@ENTERO_RANDOM) 
         EXEC @CUAT_COMISION = [db_utils].[library].[sp_Str_Number_Random] 1,2,1,NULL
@@ -490,6 +493,7 @@ BEGIN
         @CUAT_COMISION,
         @D_SEM_COMISION,
         @ANO_COMISION 
+
         FETCH NEXT FROM CURSOR_DOCENTES INTO @NRO_DOC_COMISION    
         SET @CANT_COMISIONES = @CANT_COMISIONES + 1
     END
