@@ -2,7 +2,7 @@
 USE db_tp_bd_aplicada
 
 GO
-CREATE OR ALTER VIEW vw_Comisiones_Asignadas
+CREATE OR ALTER VIEW [negocio].[vw_Comisiones_Asignadas]
 AS 
 (
     SELECT COM.NroComision Com, DOC.IDTipo Tipo, DOC.NroDoc Dni,DOC.Nombre Nom, DOC.Apellido Ape,
@@ -15,5 +15,6 @@ AS
         COM.NroDocDocente = DOC.NroDoc
 )
 
+
 GO
-SELECT * FROM vw_Comisiones_Asignadas
+SELECT * FROM negocio.vw_Comisiones_Asignadas
