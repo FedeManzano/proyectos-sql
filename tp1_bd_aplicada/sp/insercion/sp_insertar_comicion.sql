@@ -59,6 +59,9 @@ BEGIN
     IF @TURNO <> 'TM' AND @TURNO <> 'TN' AND @TURNO <> 'TT'
         RETURN 7
 
+    IF @CUAT <> 1 AND @CUAT <> 2
+        RETURN 8
+
     IF EXISTS 
     (
         SELECT 1
@@ -71,10 +74,10 @@ BEGIN
                 @ANO      = Año             AND
                 @D_SEM    = DiaSemana  
     )
-        RETURN 8 -- Comisión repetida   
+        RETURN 9 -- Comisión repetida   
     
     IF @ANO < 1900 
-        RETURN 9
+        RETURN 10
 
     DECLARE @NRO_COM INT = 
     (
@@ -119,13 +122,3 @@ BEGIN
 
     RETURN 1
 END
-
-/*
-SELECT * FROM [negocio].Comision
-
-DECLARE @RET INT = 0
-EXEC @RET = [db_tp_bd_aplicada].[negocio].[sp_Insertar_Comision] 1,'12898081','2933','TM',2,2,2025
-SELECT @RET
-
-EXEC [db_tp_bd_aplicada].[negocio].[sp_Insertar_Comision] 1,'12898081','2933','TM',1,3,2026 
-*/

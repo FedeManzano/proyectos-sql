@@ -569,7 +569,7 @@ BEGIN CATCH
     ROLLBACK TRANSACTION
 END CATCH
 
-SELECT * FROM negocio.Comision
+-- SELECT * FROM negocio.Comision ORDER BY NroComision
 
 /*
 DECLARE @PATENTE_AUX CHAR(7) = ''
