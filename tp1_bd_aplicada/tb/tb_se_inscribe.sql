@@ -1,4 +1,3 @@
--- TipoDocDocente, NroDocDocente, NroComision, CodMAteria, Cuatrimestre, DiaSemana, Año
 
 USE db_tp_bd_aplicada
 
@@ -10,9 +9,19 @@ BEGIN
         NroDocAlumno VARCHAR(8) NOT NULL,
         TipoDocente TINYINT NOT NULL,
         NroDocDocente VARCHAR(8) NOT NULL,
+        NroComision INT NOT NULL,
         CodMAteria CHAR(4) NOT NULL,
         Cuatrimestre TINYINT NOT NULL,
         DiaSemana TINYINT NOT NULL,
-        Año INT NOT NULL
+        Año INT NOT NULL,
+
+        PRIMARY KEY (TipoAlumno, NroDocAlumno, TipoDocente, NroDocDocente,NroComision, CodMAteria, Cuatrimestre, DiaSemana, Año),
+
+        FOREIGN KEY(TipoAlumno, NroDocAlumno) 
+            REFERENCES [db_tp_bd_aplicada].[negocio].[Alumno](TipoDoc, NroDoc),
+        FOREIGN KEY(TipoDocente, NroDocDocente, NroComision, CodMAteria, Cuatrimestre, DiaSemana, Año) 
+            REFERENCES [db_tp_bd_aplicada].[negocio].[Comision] 
+        (TipoDocDocente, NroDocDocente, NroComision, CodMateria, Cuatrimestre, DiaSemana, Año)
     )
-END
+END 
+
