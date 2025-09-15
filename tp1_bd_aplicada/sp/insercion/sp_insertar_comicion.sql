@@ -118,7 +118,5 @@ BEGIN
         @ANO,
         @D_SEM
     )
-
-
     RETURN 1
 END

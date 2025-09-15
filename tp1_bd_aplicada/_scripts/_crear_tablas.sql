@@ -597,5 +597,3 @@ BEGIN
     PRINT(@D)
     FETCH NEXT FROM CursorPersona INTO @D 
 END*/
-
---SELECT * FROM [db_tp_bd_aplicada].[negocio].[Dia_Semana]

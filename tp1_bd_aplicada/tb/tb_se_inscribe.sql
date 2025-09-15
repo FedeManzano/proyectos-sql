@@ -25,3 +25,5 @@ BEGIN
     )
 END 
 
+-- DROP TABLE [db_tp_bd_aplicada].[negocio].[Se_Inscribe]
+-- TRUNCATE TABLE [db_tp_bd_aplicada].[negocio].[Se_Inscribe]
