@@ -459,11 +459,117 @@ BEGIN TRY
         ('Domingo')
     END
 
+    ---- TABLA Comision -------------------------------------------------------------------------------------------
+    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '[db_tp_bd_aplicada].[negocio].[Comision]' )
+    BEGIN 
+        CREATE TABLE [db_tp_bd_aplicada].[negocio].[Comision]
+        (
+            TipoDocDocente TINYINT NOT NULL,
+            NroDocDocente VARCHAR(8) NOT NULL,
+            CodMateria CHAR(4) NOT NULL,
+            NroComision INT NOT NULL,
+            Turno CHAR(2) NOT NULL,
+            Cuatrimestre TINYINT NOT NULL,
+            DiaSemana TINYINT NOT NULL,
+            Año INT NOT NULL,
+            CONSTRAINT PK_Docente_Comision 
+                PRIMARY KEY(TipoDocDocente, NroDocDocente, NroComision, CodMAteria, Cuatrimestre, DiaSemana, Año),
+            CONSTRAINT FK_Docente_Comision FOREIGN KEY(TipoDocDocente, NroDocDocente) 
+                REFERENCES [db_tp_bd_aplicada].[negocio].[Docente](TipoDoc, NroDoc),
+            CONSTRAINT FK_Materia FOREIGN KEY(CodMateria) 
+                REFERENCES [db_tp_bd_aplicada].[negocio].[Materia](CodMateria),
+            CONSTRAINT FK_DiaSemana FOREIGN KEY(DiaSemana) 
+                REFERENCES [db_tp_bd_aplicada].[negocio].[Dia_Semana](CodDia)
+        )
+        
+        DECLARE @ENTERO_RANDOM INT = -1
+        DECLARE @CANT_COMISIONES INT = 0
+
+        DECLARE @TIPO_DOC_COMISION TINYINT      = 0,
+                @NRO_DOC_COMISION  VARCHAR(8)   = '',
+                @COD_MAT_COMISION  CHAR(4)      = '',
+                @TURNO_COMISION    CHAR(2)      = '',
+                @CUAT_COMISION     INT          = 0,
+                @D_SEM_COMISION    TINYINT      = 0,
+                @ANO_COMISION      INT          = 0
+
+        DECLARE @MATERIAS_COMISION TABLE 
+        (
+            ID INT IDENTITY(1,1) PRIMARY KEY,
+            CodMateria CHAR(4) NOT NULL
+        )
+
+        INSERT INTO @MATERIAS_COMISION (CodMateria)
+        SELECT CodMateria
+        FROM [db_tp_bd_aplicada].[negocio].[Materia]
+
+        DECLARE CURSOR_DOCENTES CURSOR FOR
+        SELECT NroDoc 
+        FROM [db_tp_bd_aplicada].[negocio].[Docente]
+
+        OPEN CURSOR_DOCENTES
+
+        FETCH NEXT FROM CURSOR_DOCENTES INTO @NRO_DOC_COMISION    
+       
+        WHILE @CANT_COMISIONES < 50 AND @@FETCH_STATUS = 0
+        BEGIN 
+            
+            SET @TIPO_DOC_COMISION = 
+            (
+                SELECT TOP(1)TipoDoc
+                FROM [db_tp_bd_aplicada].[negocio].[Docente]
+                WHERE NroDoc = @NRO_DOC_COMISION
+            )
+
+            SET @COD_MAT_COMISION = 
+            (
+                SELECT CodMateria
+                FROM @MATERIAS_COMISION
+                WHERE ID = @ENTERO_RANDOM
+            )
+            EXEC @ENTERO_RANDOM = [db_utils].[library].[sp_Str_Number_Random] 1,2,2,NULL
+            WHILE @COD_MAT_COMISION IS NULL 
+            BEGIN 
+                EXEC @ENTERO_RANDOM = [db_utils].[library].[sp_Str_Number_Random] 1,2,2,NULL 
+                SET @COD_MAT_COMISION = 
+                (
+                    SELECT CodMateria
+                    FROM @MATERIAS_COMISION
+                    WHERE ID = @ENTERO_RANDOM
+                )
+            END
+            EXEC @ENTERO_RANDOM = [db_utils].[library].[sp_Str_Number_Random] 1,3,1,NULL
+
+            SET @TURNO_COMISION = [db_tp_bd_aplicada].[negocio].[fn_Selector_Turno](@ENTERO_RANDOM) 
+
+            EXEC @CUAT_COMISION = [db_utils].[library].[sp_Str_Number_Random] 1,2,1,NULL
+
+            EXEC @D_SEM_COMISION = [db_utils].[library].[sp_Str_Number_Random] 1,7,1,NULL
+
+            SET @ANO_COMISION = 2025
+
+            EXEC [db_tp_bd_aplicada].[negocio].[sp_Insertar_Comision] 
+            @TIPO_DOC_COMISION,
+            @NRO_DOC_COMISION,
+            @COD_MAT_COMISION,
+            @TURNO_COMISION,
+            @CUAT_COMISION,
+            @D_SEM_COMISION,
+            @ANO_COMISION 
+
+
+            FETCH NEXT FROM CURSOR_DOCENTES INTO @NRO_DOC_COMISION    
+            SET @CANT_COMISIONES = @CANT_COMISIONES + 1
+        END
+    END
+
     COMMIT TRANSACTION
 END TRY 
 BEGIN CATCH
     ROLLBACK TRANSACTION
 END CATCH
+
+SELECT * FROM negocio.Comision
 
 /*
 DECLARE @PATENTE_AUX CHAR(7) = ''
