@@ -7,16 +7,16 @@
     ESQUEMAS (Código de abajo en este archivo)
 
     3 - PROCEDIMINETOS
-    sp\random\sp_crear_dni_aleatorio.sql (Crear dni aleatorios)
-    sp\insercion\sp_insertar_comision.sql
-    /sp/sp_inscribirse_materia.sql
+    /sp/random/sp_crear_dni_aleatorio.sql (Crear dni aleatorios)
+    /sp/insercion/sp_insertar_comision.sql
+    /sp/insercion/sp_inscribirse_materia.sql
 
     4 - FUNCIONES
     /fn/fn_selector_turnos.sql
 
     5 - SCRIPTS (Sólo para probar)
     *** Sólo para pruebas No para producción ***
-    _scripts/_crear_tablas.sql (Está todo el lote de prueba)
+    /_scripts/_crear_tablas.sql (Está todo el lote de prueba)
 
     6(OPCIONAL) - TABLAS (Para generar BD Vacía)
     /tb/tb_tipo_doc.sql

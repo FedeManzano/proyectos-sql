@@ -12,7 +12,7 @@ AS
     INNER JOIN
     [db_tp_bd_aplicada].[negocio].[Persona] DOC
     ON  COM.TipoDocDocente = DOC.IDTipo AND 
-        COM.NroDocDocente = DOC.NroDoc
+        COM.NroDocDocente  = DOC.NroDoc
 )
 
 

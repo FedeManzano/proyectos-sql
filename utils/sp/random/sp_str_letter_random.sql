@@ -18,8 +18,7 @@ CREATE OR ALTER PROCEDURE [library].[sp_Str_letter_Random]
 AS 
 BEGIN 
     IF  @CANT_LETRAS IS NULL    OR 
-        @CANT_LETRAS <= 0       OR 
-        @CANT_LETRAS >= 10
+        @CANT_LETRAS <= 0   
         RETURN 0
     
     SET @S_RES = ''
@@ -39,6 +38,11 @@ BEGIN
     END 
     RETURN 1 -- Para hacer las pruebas
 END
+
+/*
+DECLARE @PALABRA VARCHAR(30) = ''
+EXEC [db_utils].[library].[sp_Str_letter_Random] 11,0,@PALABRA OUTPUT 
+SELECT @PALABRA*/
 
 
 

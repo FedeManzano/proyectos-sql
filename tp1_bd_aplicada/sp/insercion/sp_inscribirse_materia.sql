@@ -14,8 +14,7 @@ CREATE OR ALTER PROCEDURE [negocio].[sp_Inscribirse_Materia]
 @ANO               INT 
 AS 
 BEGIN 
-
-    BEGIN TRANSACTION 
+    BEGIN TRANSACTION INS_MAT
     BEGIN TRY 
         IF NOT EXISTS 
         (
@@ -29,7 +28,7 @@ BEGIN
                 @D_SEM           =   DiaSemana         AND 
                 @ANO             =   Año
         )
-            RAISERROR('La comisión no existe en la base de datos', 21, 1)
+            RAISERROR('La comisión no existe en la base de datos', 11, 1)
             
 
         IF EXISTS 
@@ -46,8 +45,11 @@ BEGIN
                 @TIPO_ALU        =    TipoAlumno       AND 
                 @DNI_ALU         =    NroDocAlumno      
         )
-            RAISERROR('Usted ya está anotado a esta comisión', 21, 1)
-            
+            RAISERROR('Usted ya está anotado a esta comisión', 11, 1)
+
+        IF  @TIPO_DOC = @TIPO_ALU AND 
+            @DNI_DOC = @DNI_ALU  
+            RAISERROR('No puede ser alumno y docente en la misma comisión', 11, 1)    
 
         INSERT INTO [db_tp_bd_aplicada].[negocio].[Se_Inscribe]    
             (TipoDocente, NroDocDocente, TipoAlumno, NroDocAlumno, NroComision, CodMAteria, Cuatrimestre, DiaSemana, Año)
@@ -76,8 +78,14 @@ BEGIN
 
         RAISERROR(@MJE_ERROR, @SEVERIDAD, @ESTADO)
 
-        ROLLBACK TRANSACTION
+        ROLLBACK TRANSACTION INS_MAT
     END CATCH
 END
 
-
+/*
+SELECT * FROM negocio.Comision
+SELECT * FROM negocio.Alumno
+SELECT * FROM negocio.Se_Inscribe
+DeCLARE @RES INT 
+EXEC @RES = [db_tp_bd_aplicada].[negocio].[sp_Inscribirse_Materia] 1, '12488132', 1, '12488132', 2, '2932', 1, 3, 2025
+SELECT @RES */
