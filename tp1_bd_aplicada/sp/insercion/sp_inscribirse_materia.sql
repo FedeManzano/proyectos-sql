@@ -36,14 +36,14 @@ BEGIN
         (
             SELECT 1
             FROM [db_tp_bd_aplicada].[negocio].[Se_Inscribe]
-            WHERE @TIPO_DOC      =    TipoDocente       AND 
-                @DNI_DOC         =    NroDocDocente     AND 
-                @NRO_COM         =    NroComision       AND 
-                @COD_MAT         =    CodMAteria        AND 
-                @CUATRIMESTRE    =    Cuatrimestre      AND 
-                @D_SEM           =    DiaSemana         AND 
-                @ANO             =    Año               AND 
-                @TIPO_ALU        =    TipoAlumno        AND 
+            WHERE @TIPO_DOC      =    TipoDocente      AND 
+                @DNI_DOC         =    NroDocDocente    AND 
+                @NRO_COM         =    NroComision      AND 
+                @COD_MAT         =    CodMAteria       AND 
+                @CUATRIMESTRE    =    Cuatrimestre     AND 
+                @D_SEM           =    DiaSemana        AND 
+                @ANO             =    Año              AND 
+                @TIPO_ALU        =    TipoAlumno       AND 
                 @DNI_ALU         =    NroDocAlumno      
         )
             RAISERROR('Usted ya está anotado a esta comisión', 21, 1)
