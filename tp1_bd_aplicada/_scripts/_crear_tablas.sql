@@ -538,43 +538,52 @@ DECLARE @COMISIONES TABLE
     DiaSemana TINYINT NOT NULL,
     Año INT NOT NULL
 )
+
+
 INSERT INTO @COMISIONES (TipoDocDocente, NroDocDocente, NroComision, CodMAteria, Cuatrimestre, DiaSemana, Año)
 SELECT TipoDocDocente, NroDocDocente, NroComision, CodMAteria, Cuatrimestre, DiaSemana, Año
 FROM [db_tp_bd_aplicada].[negocio].[Comision]
---   SELECT * FROM @COMISIONES
+
 DECLARE @DNI_ALU VARCHAR(8) = ''
+
 DECLARE CursorAlu CURSOR FOR
 SELECT NroDoc
 FROM [db_tp_bd_aplicada].[negocio].[Alumno]
+
 OPEN CursorAlu
+
 FETCH NEXT FROM CursorAlu INTO @DNI_ALU
+
 WHILE @@FETCH_STATUS = 0
 BEGIN 
-    EXEC @RAND_COM = [db_utils].[library].[sp_Str_Number_Random] 1,5,2, NULL
-  --  SELECT @RAND_COM
-    WHILE NOT EXISTS 
-    (
-        SELECT 1
-        FROM @COMISIONES 
-        WHERE ID = @RAND_COM
-    )
-    BEGIN 
-        EXEC @RAND_COM = [db_utils].[library].[sp_Str_Number_Random] 1,5,2, NULL
-    END
-    SELECT @TIPO_DOC_INS = TipoDocDocente,
-           @NRO_DOC_INS  = NroDocDocente,
-           @NRO_COM_INS  = NroComision,
-           @COD_MAT_INS  = CodMateria,
-           @CUA_INS      = Cuatrimestre,
-           @DIA_SEM      = DiaSemana,
-           @ANO_INS      = Año
-    FROM @COMISIONES
-    WHERE ID = @RAND_COM
+
     SELECT @TIPO_DOC_ALU = TipoDoc
     FROM [db_tp_bd_aplicada].[negocio].[Alumno]
     WHERE NroDoc = @DNI_ALU
+
     WHILE @CANT_INS_ALU < 5
     BEGIN 
+        EXEC @RAND_COM = [db_utils].[library].[sp_Str_Number_Random] 1,5,2, NULL
+
+        WHILE NOT EXISTS 
+        (
+            SELECT 1
+            FROM @COMISIONES 
+            WHERE ID = @RAND_COM
+        )
+        BEGIN 
+            EXEC @RAND_COM = [db_utils].[library].[sp_Str_Number_Random] 1,5,2, NULL
+        END
+        SELECT  @TIPO_DOC_INS = TipoDocDocente,
+                @NRO_DOC_INS  = NroDocDocente,
+                @NRO_COM_INS  = NroComision,
+                @COD_MAT_INS  = CodMateria,
+                @CUA_INS      = Cuatrimestre,
+                @DIA_SEM      = DiaSemana,
+                @ANO_INS      = Año
+        FROM @COMISIONES
+        WHERE ID = @RAND_COM
+
         EXEC [db_tp_bd_aplicada].[negocio].[sp_Inscribirse_Materia] @TIPO_DOC_INS, @NRO_DOC_INS, @TIPO_DOC_ALU ,@DNI_ALU,@NRO_COM_INS, @COD_MAT_INS,@CUA_INS, @DIA_SEM, @ANO_INS
         SET @CANT_INS_ALU = @CANT_INS_ALU + 1
     END
@@ -583,35 +592,7 @@ BEGIN
 END
 CLOSE CursorAlu
 
-
-
--- SELECT * FROM negocio.Comision ORDER BY NroComision
-
-/*
-DECLARE @PATENTE_AUX CHAR(7) = ''
-DECLARE CursorVehiculo CURSOR FOR
-SELECT Patente FROM [db_tp_bd_aplicada].[negocio].[Vehiculo]
-
-OPEN CursorVehiculo
-
-FETCH NEXT FROM CursorVehiculo INTO @PATENTE_AUX;
-WHILE @@FETCH_STATUS = 0
-BEGIN 
-    PRINT(@PATENTE_AUX)
-    FETCH NEXT FROM CursorVehiculo INTO @PATENTE_AUX;
-END*/
-/*
-DECLARE @D CHAR(8)
-DECLARE CursorPersona CURSOR FOR
-SELECT NroDoc FROM [db_tp_bd_aplicada].[negocio].[Persona]
-
-OPEN CursorPersona
-
-FETCH NEXT FROM CursorPersona INTO @D 
-WHILE @@FETCH_STATUS = 0
-BEGIN 
-    PRINT(@D)
-    FETCH NEXT FROM CursorPersona INTO @D 
-END*/
-
-SELECT * FROM [db_tp_bd_aplicada].[negocio].[Se_Inscribe] ORDER BY NroComision
+/* TEST
+SELECT NroDocAlumno, COUNT(NroComision) FROM [db_tp_bd_aplicada].[negocio].[Se_Inscribe] 
+GROUP BY NroDocAlumno
+ORDER BY NroDocAlumno */
