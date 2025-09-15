@@ -28,7 +28,8 @@ BEGIN
                 @D_SEM           =   DiaSemana         AND 
                 @ANO             =   Año
         )
-            RAISERROR('La comisión no existe en la base de datos', 11, 1)
+            RETURN 0
+            --RAISERROR('La comisión no existe en la base de datos', 11, 1)
             
 
         IF EXISTS 
@@ -45,7 +46,8 @@ BEGIN
                 @TIPO_ALU        =    TipoAlumno       AND 
                 @DNI_ALU         =    NroDocAlumno      
         )
-            RAISERROR('Usted ya está anotado a esta comisión', 11, 1)
+            RETURN 1
+            --RAISERROR('Usted ya está anotado a esta comisión', 11, 1)
 
         IF  @TIPO_DOC = @TIPO_ALU AND 
             @DNI_DOC = @DNI_ALU  
