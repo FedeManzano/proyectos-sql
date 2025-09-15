@@ -9,6 +9,7 @@
     3 - PROCEDIMINETOS
     sp\random\sp_crear_dni_aleatorio.sql (Crear dni aleatorios)
     sp\insercion\sp_insertar_comision.sql
+    /sp/sp_inscribirse_materia.sql
 
     4 - FUNCIONES
     /fn/fn_selector_turnos.sql
