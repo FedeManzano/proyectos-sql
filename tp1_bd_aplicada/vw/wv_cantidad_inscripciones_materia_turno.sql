@@ -5,9 +5,18 @@ CREATE OR ALTER VIEW [negocio].[vw_Cantidad_Inscripciones_Materias_Turno]
 AS 
 (
     SELECT  COD_MAT,
-            ISNULL([TM], 0) AS T_MAÑANA, 
-            ISNULL([TT], 0) AS T_TARDE, 
-            ISNULL([TN], 0) AS T_NOCHE
+            CASE ISNULL([TM], 0) 
+                WHEN 0 THEN 'N/A'
+                ELSE ISNULL([TM], 0)
+            END AS T_MAÑANA,
+            CASE ISNULL([TT], 0) 
+                WHEN 0 THEN 'N/A'
+                ELSE ISNULL([TT], 0)
+            END AS T_TARDE,
+            CASE ISNULL([TN], 0) 
+                WHEN 0 THEN 'N/A'
+                ELSE ISNULL([TN], 0)
+            END AS T_NOCHE
     FROM 
     (
         SELECT  COM.NroComision NRO_COM, 
