@@ -31,8 +31,8 @@ BEGIN
             RETURN 0
             --RAISERROR('La comisión no existe en la base de datos', 11, 1)
             
-
-        IF EXISTS 
+/** EVITA SUPERPOSICIONES DE INSCRIPCIONES */
+/*        IF EXISTS 
         (
             SELECT 1
             FROM [db_tp_bd_aplicada].[negocio].[Se_Inscribe]
@@ -47,7 +47,7 @@ BEGIN
                 @DNI_ALU         =    NroDocAlumno      
         )
             RETURN 1
-            --RAISERROR('Usted ya está anotado a esta comisión', 11, 1)
+*/          --RAISERROR('Usted ya está anotado a esta comisión', 11, 1)
 
         IF  @TIPO_DOC = @TIPO_ALU AND 
             @DNI_DOC = @DNI_ALU  

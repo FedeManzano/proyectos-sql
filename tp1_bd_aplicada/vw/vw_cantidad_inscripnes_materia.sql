@@ -1,5 +1,7 @@
 USE db_tp_bd_aplicada
 
+
+--- PRO VENTANA
 GO
 CREATE OR ALTER VIEW [negocio].[vw_Cantidad_Inscriptos_Materia]
 AS 
@@ -11,10 +13,7 @@ AS
             INS.Año             AS AÑO,
         COUNT(INS.CodMAteria) OVER
         (
-            PARTITION BY    INS.TipoAlumno, 
-                            INS.NroDocAlumno, 
-                            INS.Cuatrimestre, 
-                            INS.Año
+            PARTITION BY    INS.CodMAteria
         ) AS CANT_INSCRPCIONES_POR_MATERIA
     FROM [negocio].[Se_Inscribe] INS
 )
@@ -23,3 +22,16 @@ AS
 GO
 SELECT * FROM negocio.vw_Cantidad_Inscriptos_Materia
 
+
+-- POR AGREGACIÓN
+
+WITH Cantidad_Inscripciones_Materia (COD_MAT, CANTIDAD_ALU) 
+AS 
+    (
+         SELECT INS.CodMAteria      AS COD_MAT, 
+                COUNT(*)            AS CANTIDAD_ALU
+        FROM [negocio].[Se_Inscribe] INS
+        GROUP BY INS.CodMAteria 
+    )
+
+SELECT * FROM Cantidad_Inscripciones_Materia
