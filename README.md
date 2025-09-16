@@ -15,8 +15,8 @@
 
 ![DER](tp1_bd_aplicada/mod/DER.png)
 
-> Para poder correrlo hay que grear la base de datod <b>db_utils</b> incluída en el repositorio.
-Todo lo que se encuentre dentro de esa base de datos es código para reútilización.
+> Para poder correrlo hay que crear la base de datos <b>db_utils</b> incluída en el repositorio.
+Todo lo que se encuentre dentro de esa base de datos es código para la reutilización.
 
 ## Dependencias (db_utils)
 
