@@ -123,5 +123,7 @@ BEGIN
     SET @CADENA = TRIM(@CADENA)
 END
 ```
+### Autor
 
+[Federico Manzano](https://github.com/FedeManzano)
 
