@@ -14,5 +14,5 @@ AS
 
 SELECT  * 
 FROM    Personas_Jovenes_Grandes
-WHERE   ACUM_EDADES >= 0      AND  ACUM_EDADES <= 0.05 OR
+WHERE   ACUM_EDADES >= 0      AND  ACUM_EDADES <= 0.05 OR 
         ACUM_EDADES >= 0.95   AND  ACUM_EDADES <= 1
