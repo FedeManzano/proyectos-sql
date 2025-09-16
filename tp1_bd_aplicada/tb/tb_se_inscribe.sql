@@ -1,7 +1,13 @@
 
 USE db_tp_bd_aplicada
 
-IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '[db_tp_bd_aplicada].[negocio].[Se_Inscribe]' )
+IF NOT EXISTS 
+(
+    SELECT 1 
+    FROM INFORMATION_SCHEMA.TABLES 
+    WHERE   TABLE_SCHEMA    = 'negocio' AND
+            TABLE_NAME      = 'Se_Inscribe' 
+)
 BEGIN 
     CREATE TABLE [db_tp_bd_aplicada].[negocio].[Se_Inscribe]
     (
@@ -24,6 +30,7 @@ BEGIN
         (TipoDocDocente, NroDocDocente, NroComision, CodMateria, Cuatrimestre, DiaSemana, Año)
     )
 END 
+ELSE PRINT('*** La tabla [Se_Inscribe] ya existe en la base de datos')
 
 -- DROP TABLE [db_tp_bd_aplicada].[negocio].[Se_Inscribe]
 -- TRUNCATE TABLE [db_tp_bd_aplicada].[negocio].[Se_Inscribe]

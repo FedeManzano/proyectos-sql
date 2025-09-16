@@ -1,7 +1,13 @@
 USE db_tp_bd_aplicada
 
 
-IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '[db_tp_bd_aplicada].[negocio].[Tipo_Doc]')
+IF NOT EXISTS 
+(
+    SELECT * 
+    FROM INFORMATION_SCHEMA.TABLES 
+    WHERE   TABLE_SCHEMA = 'negocio' AND
+            TABLE_NAME = 'Tipo_Doc'
+)
 BEGIN
     CREATE TABLE [db_tp_bd_aplicada].[negocio].[Tipo_Doc]
     (
@@ -15,6 +21,7 @@ BEGIN
         ), 
     );
 END
+ELSE PRINT('*** La tabla [Tipo_Doc] ya existe en la base de datos')
 
 -- TRUNCATE TABLE [db_tp_bd_aplicada].[negocio].[Tipo_Doc]
 -- DROP TABLE [db_tp_bd_aplicada].[negocio].[Tipo_Doc]

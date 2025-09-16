@@ -7,11 +7,13 @@ Las tablas tienen que ser creadas individualmente desde los archivos pertenecien
 al path /tb/ dentro de este proyecto.
 */
 
+
 IF NOT EXISTS 
 (
     SELECT * 
     FROM INFORMATION_SCHEMA.TABLES 
-    WHERE TABLE_NAME = '[db_tp_bd_aplicada].[negocio].[Localidad]'
+    WHERE   TABLE_SCHEMA =  'negocio' AND
+            TABLE_NAME =    'Localidad'
 )
 BEGIN
     CREATE TABLE [db_tp_bd_aplicada].[negocio].[Localidad]
@@ -34,9 +36,10 @@ END -- Termina la creación de la tabla localidad
 -- TABLA TIPO_DOC ---------------------------------------------------------------------------------------
 IF NOT EXISTS 
 (
-    SELECT * 
+    SELECT 1
     FROM INFORMATION_SCHEMA.TABLES 
-    WHERE TABLE_NAME = '[db_tp_bd_aplicada].[negocio].[Tipo_Doc]'
+    WHERE   TABLE_SCHEMA = 'negocio' AND
+            TABLE_NAME   = 'Tipo_Doc'
 )
 BEGIN
     CREATE TABLE [db_tp_bd_aplicada].[negocio].[Tipo_Doc]
@@ -63,7 +66,8 @@ IF NOT EXISTS
 (
     SELECT * 
     FROM INFORMATION_SCHEMA.TABLES 
-    WHERE TABLE_NAME = '[db_tp_bd_aplicada].[negocio].[Persona]'
+    WHERE   TABLE_SCHEMA = 'negocio' AND 
+            TABLE_NAME   = 'Persona'
 )
 BEGIN
     CREATE TABLE [db_tp_bd_aplicada].[negocio].[Persona] 
@@ -141,12 +145,16 @@ BEGIN
         SET @CANT_PERSONAS = @CANT_PERSONAS + 1
     END
 END -- FIN INGRESO 1100 Personas
+
+
 ---- TABLA Vehiculo -------------------------------------------------------------------------------------------
 IF NOT EXISTS 
 (
     SELECT * 
     FROM INFORMATION_SCHEMA.TABLES 
-    WHERE TABLE_NAME = '[db_tp_bd_aplicada].[negocio].[Vehiculo]'
+
+    WHERE   TABLE_SCHEMA = 'negocio' AND
+            TABLE_NAME =    'Vehiculo'
 )
 BEGIN
     /**
@@ -246,7 +254,8 @@ IF NOT EXISTS
 (
     SELECT 1 
     FROM INFORMATION_SCHEMA.TABLES 
-    WHERE TABLE_NAME = '[db_tp_bd_aplicada].[negocio].[Docente]'
+    WHERE   TABLE_SCHEMA = 'negocio' AND
+            TABLE_NAME   = 'Docente'
 )
 BEGIN 
     CREATE TABLE [db_tp_bd_aplicada].[negocio].[Docente]
@@ -278,7 +287,8 @@ IF NOT EXISTS
 (
     SELECT 1 
     FROM INFORMATION_SCHEMA.TABLES 
-    WHERE TABLE_NAME = '[db_tp_bd_aplicada].[negocio].[Alumno]' 
+    WHERE   TABLE_SCHEMA = 'negocio' AND
+            TABLE_NAME = 'Alumno' 
 )
 BEGIN 
     CREATE TABLE [db_tp_bd_aplicada].[negocio].[Alumno]
@@ -359,12 +369,15 @@ BEGIN
         FETCH NEXT FROM ClavesPersona INTO @NRO_DOC_ALUMNO;
     END
 END
+
+
 ---- TABLA Materia -------------------------------------------------------------------------------------------
 IF NOT EXISTS 
 (
     SELECT 1 
     FROM INFORMATION_SCHEMA.TABLES 
-    WHERE TABLE_NAME = '[db_tp_bd_aplicada].[negocio].[Materia]'
+    WHERE   TABLE_SCHEMA = 'negocio' AND
+            TABLE_NAME   = 'Materia'
 )
 BEGIN 
     CREATE TABLE [db_tp_bd_aplicada].[negocio].[Materia]
@@ -386,8 +399,17 @@ BEGIN
     ('2939', 'Virtualización'),
     ('2940', 'Diseño de Sistemas')
 END
+
+
 ---- TABLA Dia_Semana -------------------------------------------------------------------------------------------
-IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '[db_tp_bd_aplicada].[negocio].[Dia_Semana]' )
+IF NOT EXISTS 
+(
+        SELECT 1 
+        FROM INFORMATION_SCHEMA.TABLES
+
+        WHERE   TABLE_SCHEMA    = 'negocio' AND
+                TABLE_NAME      = 'Dia_Semana' 
+)
 BEGIN 
     CREATE TABLE [db_tp_bd_aplicada].[negocio].[Dia_Semana]
     (
@@ -405,7 +427,13 @@ BEGIN
     ('Domingo')
 END
 ---- TABLA Comision -------------------------------------------------------------------------------------------
-IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '[db_tp_bd_aplicada].[negocio].[Comision]' )
+IF NOT EXISTS 
+(
+    SELECT 1 
+    FROM INFORMATION_SCHEMA.TABLES 
+    WHERE   TABLE_SCHEMA    = 'negocio' AND
+            TABLE_NAME      = 'Comision' 
+)
 BEGIN 
     CREATE TABLE [db_tp_bd_aplicada].[negocio].[Comision]
     (
@@ -498,7 +526,16 @@ BEGIN
         SET @CANT_COMISIONES = @CANT_COMISIONES + 1
     END
 END
-IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '[db_tp_bd_aplicada].[negocio].[Se_Inscribe]' )
+
+
+---- TABLA Se_Inscribe -------------------------------------------------------------------------------------------
+IF NOT EXISTS 
+(
+    SELECT 1 
+    FROM INFORMATION_SCHEMA.TABLES 
+    WHERE   TABLE_SCHEMA = 'negocio'    AND
+            TABLE_NAME   = 'Se_Inscribe' 
+)
 BEGIN 
     CREATE TABLE [db_tp_bd_aplicada].[negocio].[Se_Inscribe]
     (
@@ -597,6 +634,4 @@ END
 CLOSE CursorAlu
 
 /* TEST
-SELECT * FROM [db_tp_bd_aplicada].[negocio].[Se_Inscribe] 
-GROUP BY NroDocAlumno
-ORDER BY NroDocAlumno */
+SELECT * FROM [db_tp_bd_aplicada].[negocio].[Se_Inscribe] */

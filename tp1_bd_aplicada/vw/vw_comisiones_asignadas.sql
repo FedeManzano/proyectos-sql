@@ -30,3 +30,4 @@ AS
 
 GO
 SELECT * FROM negocio.vw_Comisiones_Asignadas
+

@@ -1,7 +1,14 @@
 
 USE db_tp_bd_aplicada
 
-IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '[db_tp_bd_aplicada].[negocio].[Comision]' )
+IF NOT EXISTS 
+(
+    SELECT 1 
+    FROM INFORMATION_SCHEMA.TABLES 
+
+    WHERE   TABLE_SCHEMA    = 'negocio' AND
+            TABLE_NAME      = 'Comision' 
+)
 BEGIN 
     CREATE TABLE [db_tp_bd_aplicada].[negocio].[Comision]
     (
@@ -23,6 +30,8 @@ BEGIN
             REFERENCES [db_tp_bd_aplicada].[negocio].[Dia_Semana](CodDia)
     )
 END
+ELSE 
+    PRINT('*** La tabla [Comision] ya existe en la base de datos')
 
 -- DROP TABLE [db_tp_bd_aplicada].[negocio].[Comision]
 -- TRUNCATE TABLE [db_tp_bd_aplicada].[negocio].[Comision]

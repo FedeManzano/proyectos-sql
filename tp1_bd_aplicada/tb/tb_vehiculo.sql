@@ -5,7 +5,8 @@ IF NOT EXISTS
 (
     SELECT * 
     FROM INFORMATION_SCHEMA.TABLES 
-    WHERE TABLE_NAME = '[db_tp_bd_aplicada].[negocio].[Vehiculo]'
+    WHERE   TABLE_SCHEMA    = 'negocio' AND
+            TABLE_NAME      = 'Vehiculo'
 )
 BEGIN
    CREATE TABLE [db_tp_bd_aplicada].[negocio].[Vehiculo]
@@ -19,6 +20,7 @@ BEGIN
 
     );
 END
+ELSE PRINT('*** La tabla [Vehiculo] ya existe en la base de datos')
 
 -- TRUNCATE TABLE [db_tp_bd_aplicada].[negocio].[Vehiculo]
 -- DROP TABLE [db_tp_bd_aplicada].[negocio].[Vehiculo]

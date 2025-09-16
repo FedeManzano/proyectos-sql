@@ -1,7 +1,13 @@
 USE db_tp_bd_aplicada
 
 
-IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '[db_tp_bd_aplicada].[negocio].[Docente]')
+IF NOT EXISTS 
+(
+    SELECT 1 
+    FROM INFORMATION_SCHEMA.TABLES  
+    WHERE   TABLE_SCHEMA = 'negocio' AND
+            TABLE_NAME   = 'Docente'
+)
 BEGIN 
     CREATE TABLE [db_tp_bd_aplicada].[negocio].[Docente]
     (
@@ -13,6 +19,7 @@ BEGIN
         REFERENCES [db_tp_bd_aplicada].[negocio].[Persona](IDTipo, NroDoc)
     )
 END 
+ELSE PRINT('*** La tabla [Docente] ya existe en la base de datos')
 
 -- TRUNCATE TABLE [db_tp_bd_aplicada].[negocio].[Docente]
 -- DROP TABLE [db_tp_bd_aplicada].[negocio].[Docente]

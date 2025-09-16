@@ -1,7 +1,13 @@
 
 USE db_tp_bd_aplicada
 
-IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '[db_tp_bd_aplicada].[negocio].[Dia_Semana]' )
+IF NOT EXISTS 
+(
+    SELECT 1 
+    FROM INFORMATION_SCHEMA.TABLES 
+    WHERE   TABLE_SCHEMA    = 'negocio' AND
+            TABLE_NAME      = 'Dia_Semana' 
+)
 BEGIN 
     CREATE TABLE [db_tp_bd_aplicada].[negocio].[Dia_Semana]
     (
