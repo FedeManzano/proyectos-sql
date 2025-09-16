@@ -30,7 +30,7 @@ AS
     ) AS CANT_POR_TURNO
     PIVOT
     (
-        SUM(CANT_POR_TURNO.NRO_COM) 
+        COUNT(CANT_POR_TURNO.NRO_COM) 
         FOR CANT_POR_TURNO.TURNO IN ( [TM], [TT], [TN] )
     ) AS PI
 )
