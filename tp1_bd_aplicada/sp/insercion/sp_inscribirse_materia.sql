@@ -31,7 +31,7 @@ BEGIN
             RETURN 0
             --RAISERROR('La comisión no existe en la base de datos', 11, 1)
             
-/*
+
         IF EXISTS 
         (
             SELECT 1
@@ -48,7 +48,7 @@ BEGIN
         )
             RETURN 1
             --RAISERROR('Usted ya está anotado a esta comisión', 11, 1)
-*/
+
         IF  @TIPO_DOC = @TIPO_ALU AND 
             @DNI_DOC = @DNI_ALU  
             RAISERROR('No puede ser alumno y docente en la misma comisión', 11, 1)    
