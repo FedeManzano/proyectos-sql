@@ -46,28 +46,3 @@ BEGIN
     EXEC('CREATE SCHEMA test')
 END
 ---------------------------------------------------------------------------------
-
-/*
-SELECT <columnas no pivotadas>, [valor1], [valor2] -- ..., [valorN]
-FROM
-    (
-        <consulta que devuelve las filas a pivotar>
-    ) AS SourceTable
-PIVOT
-    (
-        <<función_agregación>> (valor_a_agregar)
-        FOR <columna_pivote> IN ([valor1], [valor2] -- ..., [valorN])
-    ) AS PivotTable;
-*/
-
-/*
-WITH Personas_Docentes (Tipo, Dni, NroComision, Cant_Docentes)
-AS 
-(
-    SELECT TipoDocDocente, NroDocDocente, NroComision,
-        COUNT(NroDocDocente) OVER( PARTITION BY NroComision) Cant_Docentes
-    FROM [db_tp_bd_aplicada].[negocio].[Comision]
-)
-
-SELECT NroComision, Cant_Docentes, Dni FROM Personas_Docentes
-*/
