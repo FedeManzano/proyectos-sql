@@ -597,6 +597,6 @@ END
 CLOSE CursorAlu
 
 /* TEST
-SELECT NroDocAlumno, COUNT(NroComision) FROM [db_tp_bd_aplicada].[negocio].[Se_Inscribe] 
+SELECT * FROM [db_tp_bd_aplicada].[negocio].[Se_Inscribe] 
 GROUP BY NroDocAlumno
 ORDER BY NroDocAlumno */

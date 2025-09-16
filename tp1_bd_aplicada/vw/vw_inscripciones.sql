@@ -29,4 +29,4 @@ AS
 )
 
 GO
-SELECT * FROM [negocio].[vw_Inscripciones]
+SELECT * FROM [db_tp_bd_aplicada].[negocio].[Se_Inscribe]
