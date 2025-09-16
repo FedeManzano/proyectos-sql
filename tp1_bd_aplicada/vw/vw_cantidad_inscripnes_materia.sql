@@ -18,20 +18,6 @@ AS
     FROM [negocio].[Se_Inscribe] INS
 )
 
-
 GO
 SELECT * FROM negocio.vw_Cantidad_Inscriptos_Materia
 
-
--- POR AGREGACIÓN
-
-WITH Cantidad_Inscripciones_Materia (COD_MAT, CANTIDAD_ALU) 
-AS 
-    (
-         SELECT INS.CodMAteria      AS COD_MAT, 
-                COUNT(*)            AS CANTIDAD_ALU
-        FROM [negocio].[Se_Inscribe] INS
-        GROUP BY INS.CodMAteria 
-    )
-
-SELECT * FROM Cantidad_Inscripciones_Materia

@@ -509,6 +509,7 @@ BEGIN
             @CUAT_COMISION     INT          = 0,
             @D_SEM_COMISION    TINYINT      = 0,
             @ANO_COMISION      INT          = 0
+
     DECLARE @MATERIAS_COMISION TABLE 
     (
         ID INT IDENTITY(1,1) PRIMARY KEY,
@@ -517,7 +518,7 @@ BEGIN
     INSERT INTO @MATERIAS_COMISION (CodMateria)
     SELECT CodMateria
     FROM [db_tp_bd_aplicada].[negocio].[Materia]
-
+    
     DECLARE CURSOR_DOCENTES CURSOR FOR
     SELECT NroDoc 
     FROM [db_tp_bd_aplicada].[negocio].[Docente]
@@ -535,29 +536,24 @@ BEGIN
             FROM [db_tp_bd_aplicada].[negocio].[Docente]
             WHERE NroDoc = @NRO_DOC_COMISION
         )
+
+        EXEC @ENTERO_RANDOM = [db_utils].[library].[sp_Str_Number_Random] 1,9,2,NULL
         SET @COD_MAT_COMISION = 
         (
             SELECT CodMateria
             FROM @MATERIAS_COMISION
-            WHERE ID = @ENTERO_RANDOM
+            WHERE ID = (@ENTERO_RANDOM % 11) + 1
         )
-        EXEC @ENTERO_RANDOM = [db_utils].[library].[sp_Str_Number_Random] 1,2,2,NULL
-        WHILE @COD_MAT_COMISION IS NULL 
-        BEGIN 
-            EXEC @ENTERO_RANDOM = [db_utils].[library].[sp_Str_Number_Random] 1,2,2,NULL 
-            SET @COD_MAT_COMISION = 
-            (
-                SELECT CodMateria
-                FROM @MATERIAS_COMISION
-                WHERE ID = @ENTERO_RANDOM
-            )
-        END
+         
+        
         
         EXEC @ENTERO_RANDOM = [db_utils].[library].[sp_Str_Number_Random] 1,3,1,NULL
-        SET @TURNO_COMISION = [db_tp_bd_aplicada].[negocio].[fn_Selector_Turno](@ENTERO_RANDOM) 
-        EXEC @CUAT_COMISION = [db_utils].[library].[sp_Str_Number_Random] 1,2,1,NULL
-        EXEC @D_SEM_COMISION = [db_utils].[library].[sp_Str_Number_Random] 1,7,1,NULL
-        SET @ANO_COMISION = 2025
+        SET @TURNO_COMISION     = [db_tp_bd_aplicada].[negocio].[fn_Selector_Turno](@ENTERO_RANDOM) 
+        EXEC @CUAT_COMISION     = [db_utils].[library].[sp_Str_Number_Random] 1,2,1,NULL
+        EXEC @D_SEM_COMISION    = [db_utils].[library].[sp_Str_Number_Random] 1,7,1,NULL
+        SET @ANO_COMISION       = 2025
+
+
         EXEC [db_tp_bd_aplicada].[negocio].[sp_Insertar_Comision] 
         @TIPO_DOC_COMISION,
         @NRO_DOC_COMISION,
@@ -694,4 +690,4 @@ END
 
 
 /* TEST
-SELECT * FROM [db_tp_bd_aplicada].[negocio].[Se_Inscribe] */
+SELECT * FROM [db_tp_bd_aplicada].[negocio].[Comision] */
