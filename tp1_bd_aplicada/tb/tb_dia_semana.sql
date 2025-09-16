@@ -15,6 +15,7 @@ BEGIN
         Nombre VARCHAR(15) NOT NULL 
     )
 END
+ELSE PRINT('*** La tabla Dia_Semana ya existe en la base de datos')
 
 -- TRUNCATE TABLE [db_tp_bd_aplicada].[negocio].[Dia_Semana]
 -- DROP TABLE [db_tp_bd_aplicada].[negocio].[Dia_Semana]

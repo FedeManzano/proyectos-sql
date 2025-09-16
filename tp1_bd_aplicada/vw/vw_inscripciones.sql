@@ -12,18 +12,18 @@ AS
 
     FROM  
         [negocio].
-        [Se_Inscribe] AS INS 
+        [Se_Inscribe]   AS INS 
 
     INNER JOIN  
         [negocio].
-        [Persona] AS  ALU
+        [Persona]       AS  ALU
 
     ON  ALU.IDTipo      =   INS.TipoAlumno      AND 
         ALU.NroDoc      =   INS.NroDocAlumno 
     
     INNER JOIN
         [negocio].
-        [Materia] MAT
+        [Materia]       AS  MAT
 
     ON MAT.CodMAteria    =   INS.CodMAteria
 )

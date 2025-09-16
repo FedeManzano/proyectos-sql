@@ -32,10 +32,11 @@ AS
     )
 
 GO
+-- TEST POR AGREGACIÓN
 SELECT * FROM [negocio].[vw_Inscripciones_Superpuestas]
 
 GO
--- POR VENTANA
+-- TEST POR VENTANA
 WITH Superposicion_Inscripciones (DNI, DIA, AÑO, TURNO, CANT_SUP)
 AS 
 (
