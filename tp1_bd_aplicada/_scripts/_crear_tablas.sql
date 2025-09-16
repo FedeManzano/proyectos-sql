@@ -32,6 +32,7 @@ BEGIN
     ('Merlo'),
     ('Villa Urquiza')
 END -- Termina la creación de la tabla localidad
+ELSE  PRINT('*** La tabla [Localidad] ya existe en la base de datos')
 
 -- TABLA TIPO_DOC ---------------------------------------------------------------------------------------
 IF NOT EXISTS 
@@ -53,13 +54,17 @@ BEGIN
             Descripcion LIKE 'CAR'
         ), 
     );
-    INSERT INTO [db_tp_bd_aplicada].[negocio].[Tipo_Doc](IDTipo, Descripcion)
+    INSERT INTO [db_tp_bd_aplicada].
+                [negocio].
+                [Tipo_Doc]
+                (IDTipo, Descripcion)
+
     VALUES 
     (1, 'DNI'),
     (2, 'LC'),
     (3, 'CAR')
 END -- Termina la creación de la tabla tipo_doc
-
+ELSE  PRINT('*** La tabla [Tipo_Doc] ya existe en la base de datos')
 
 -- TABLA Persona ---------------------------------------------------------------------------------------
 IF NOT EXISTS 
@@ -84,20 +89,24 @@ BEGIN
     );
     -- Define la cantidad actual de personas procesadas
     DECLARE @CANT_PERSONAS INT = 0 -- 1100 Personas random
-    DECLARE @NRO_DOC CHAR(8) = '',
-            @NOMBRE VARCHAR(30),
-            @APELLIDO VARCHAR(30),
-            @FNAC DATE
-    DECLARE @LOC_RAND INT,  -- Guarda el ID random de localidad (1 - 8)
-            @TIPO_RAND INT, -- Guarda el ID random de tipo_doc (1 - 3)
+
+    DECLARE @NRO_DOC        CHAR(8) = '',
+            @NOMBRE         VARCHAR(30),
+            @APELLIDO       VARCHAR(30),
+            @FNAC           DATE
+
+    DECLARE @LOC_RAND       INT,  -- Guarda el ID random de localidad (1 - 8)
+            @TIPO_RAND      INT, -- Guarda el ID random de tipo_doc (1 - 3)
+            
             -- CANTIDAD TOTAL DE LOCALIDADES
-            @CANT_LOC INT =
+            @CANT_LOC       INT =
             (
                 SELECT COUNT(*)
                 FROM [db_tp_bd_aplicada].
                     [negocio].
                     [Localidad]  
             ),
+
             -- CANTIDAD TOTAL DE TIPOS DE DOCUMENTO
             @CANT_TIPO INT = 
             (
@@ -137,15 +146,34 @@ BEGIN
         EXEC    [db_utils].
                 [library].
                 [sp_Date_Random] '1980-02-01', 4, @FNAC OUTPUT
+    
         -- INSERTA A LA PERSONA
-        INSERT INTO [db_tp_bd_aplicada].[negocio].[Persona] (IDTipo, NroDoc, Nombre, Apellido, IdLocalidad, FNac)
-        VALUES
-        (@TIPO_RAND, @NRO_DOC, @NOMBRE, @APELLIDO, @LOC_RAND, @FNAC)
+        INSERT INTO [db_tp_bd_aplicada].
+                    [negocio].
+                    [Persona] 
+                    (
+                        IDTipo, 
+                        NroDoc, 
+                        Nombre, 
+                        Apellido, 
+                        IdLocalidad, 
+                        FNac
+                    )
+                    VALUES
+                    (
+                        @TIPO_RAND, 
+                        @NRO_DOC, 
+                        @NOMBRE, 
+                        @APELLIDO, 
+                        @LOC_RAND, 
+                        @FNAC
+                    )
+    
         -- CONTADOR TERMPORAL DE PERSONAS
         SET @CANT_PERSONAS = @CANT_PERSONAS + 1
     END
-END -- FIN INGRESO 1100 Personas
-
+END -- FIN INGRESO 1100 Personas -------------------------------------------------------------------
+ELSE  PRINT('*** La tabla [Persona] ya existe en la base de datos')
 
 ---- TABLA Vehiculo -------------------------------------------------------------------------------------------
 IF NOT EXISTS 
@@ -186,6 +214,7 @@ BEGIN
     FROM    [db_tp_bd_aplicada].
             [negocio].
             [Persona]
+
     DECLARE @PATENTE_NUM    CHAR(3),
             @PATENTE_LET    CHAR(3),
             @PATENTE        CHAR(7),
@@ -213,10 +242,10 @@ BEGIN
         WHILE EXISTS 
         (
             SELECT  1 
-            FROM    [db_tp_bd_aplicada].
-                    [negocio].
-                    [Vehiculo] 
-            WHERE Patente = @PATENTE
+            FROM            [db_tp_bd_aplicada].
+                            [negocio].
+                            [Vehiculo] 
+            WHERE           Patente = @PATENTE
         )
         BEGIN 
             EXEC    [db_utils].
@@ -249,6 +278,9 @@ BEGIN
         SET @CANT_VEH = @CANT_VEH + 1 
     END
 END
+ELSE  PRINT('*** La tabla [Vehiculo] ya existe en la base de datos')
+
+
 ---- TABLA Docente -------------------------------------------------------------------------------------------
 IF NOT EXISTS 
 (
@@ -282,6 +314,9 @@ BEGIN
                     )
     )
 END 
+ELSE  PRINT('*** La tabla [Docente] ya existe en la base de datos')
+
+
 ---- TABLA Alumno -------------------------------------------------------------------------------------------
 IF NOT EXISTS 
 (
@@ -344,9 +379,18 @@ BEGIN
             INSERT INTO 
                         [db_tp_bd_aplicada].
                         [negocio].
-                        [Docente] (TipoDoc, NroDoc, Cargo)
-            VALUES 
-                (@TIPO_DOC, @NRO_DOC_ALUMNO, @CARGO)
+                        [Docente] 
+                        (
+                            TipoDoc, 
+                            NroDoc, 
+                            Cargo
+                        )
+                  VALUES 
+                        (
+                            @TIPO_DOC, 
+                            @NRO_DOC_ALUMNO, 
+                            @CARGO
+                        )
             INSERT INTO 
                         [db_tp_bd_aplicada].
                         [negocio].
@@ -369,7 +413,7 @@ BEGIN
         FETCH NEXT FROM ClavesPersona INTO @NRO_DOC_ALUMNO;
     END
 END
-
+ELSE  PRINT('*** La tabla [Alumno] ya existe en la base de datos')
 
 ---- TABLA Materia -------------------------------------------------------------------------------------------
 IF NOT EXISTS 
@@ -399,6 +443,7 @@ BEGIN
     ('2939', 'Virtualización'),
     ('2940', 'Diseño de Sistemas')
 END
+ELSE  PRINT('*** La tabla [Materia] ya existe en la base de datos')
 
 
 ---- TABLA Dia_Semana -------------------------------------------------------------------------------------------
@@ -526,7 +571,7 @@ BEGIN
         SET @CANT_COMISIONES = @CANT_COMISIONES + 1
     END
 END
-
+ELSE  PRINT('*** La tabla [Comision] ya existe en la base de datos')
 
 ---- TABLA Se_Inscribe -------------------------------------------------------------------------------------------
 IF NOT EXISTS 
@@ -555,83 +600,98 @@ BEGIN
             REFERENCES [db_tp_bd_aplicada].[negocio].[Comision] 
         (TipoDocDocente, NroDocDocente, NroComision, CodMateria, Cuatrimestre, DiaSemana, Año)
     )
-END 
-DECLARE @RAND_COM INT = -1
-DECLARE @CANT_INS_ALU INT = 0
-DECLARE @TIPO_DOC_ALU INT = 0
-DECLARE @TIPO_DOC_INS TINYINT,
-        @NRO_DOC_INS  VARCHAR(8),
-        @NRO_COM_INS  INT,
-        @COD_MAT_INS  CHAR(4),
-        @CUA_INS      TINYINT,
-        @DIA_SEM      TINYINT,
-        @ANO_INS      INT  
---EXEC @RAND_COM = [db_utils].[library].[sp_Str_Number_Random] 1,5,2, NULL
---SELECT @RAND_COM
-DECLARE @COMISIONES TABLE 
-(
-    ID INT IDENTITY(1,1) PRIMARY KEY,
-    TipoDocDocente TINYINT,
-    NroDocDocente VARCHAR(8) NOT NULL,
-    NroComision INT NOT NULL,
-    CodMAteria CHAR(4) NOT NULL,
-    Cuatrimestre TINYINT NOT NULL,
-    DiaSemana TINYINT NOT NULL,
-    Año INT NOT NULL
-)
 
 
-INSERT INTO @COMISIONES (TipoDocDocente, NroDocDocente, NroComision, CodMAteria, Cuatrimestre, DiaSemana, Año)
-SELECT TipoDocDocente, NroDocDocente, NroComision, CodMAteria, Cuatrimestre, DiaSemana, Año
-FROM [db_tp_bd_aplicada].[negocio].[Comision]
+    DECLARE @RAND_COM INT = -1
+    DECLARE @CANT_INS_ALU INT = 0
+    DECLARE @TIPO_DOC_ALU INT = 0
+    DECLARE @TIPO_DOC_INS TINYINT,
+            @NRO_DOC_INS  VARCHAR(8),
+            @NRO_COM_INS  INT,
+            @COD_MAT_INS  CHAR(4),
+            @CUA_INS      TINYINT,
+            @DIA_SEM      TINYINT,
+            @ANO_INS      INT  
+    --EXEC @RAND_COM = [db_utils].[library].[sp_Str_Number_Random] 1,5,2, NULL
+    --SELECT @RAND_COM
+    DECLARE @COMISIONES TABLE 
+    (
+        ID INT IDENTITY(1,1) PRIMARY KEY,
+        TipoDocDocente TINYINT,
+        NroDocDocente VARCHAR(8) NOT NULL,
+        NroComision INT NOT NULL,
+        CodMAteria CHAR(4) NOT NULL,
+        Cuatrimestre TINYINT NOT NULL,
+        DiaSemana TINYINT NOT NULL,
+        Año INT NOT NULL
+    )
 
-DECLARE @DNI_ALU VARCHAR(8) = ''
 
-DECLARE CursorAlu CURSOR FOR
-SELECT NroDoc
-FROM [db_tp_bd_aplicada].[negocio].[Alumno]
+    INSERT INTO @COMISIONES (TipoDocDocente, NroDocDocente, NroComision, CodMAteria, Cuatrimestre, DiaSemana, Año)
+    SELECT TipoDocDocente, NroDocDocente, NroComision, CodMAteria, Cuatrimestre, DiaSemana, Año
+    FROM [db_tp_bd_aplicada].[negocio].[Comision]
 
-OPEN CursorAlu
+    DECLARE @DNI_ALU VARCHAR(8) = ''
 
-FETCH NEXT FROM CursorAlu INTO @DNI_ALU
-
-WHILE @@FETCH_STATUS = 0
-BEGIN 
-
-    SELECT @TIPO_DOC_ALU = TipoDoc
+    DECLARE CursorAlu CURSOR FOR
+    SELECT NroDoc
     FROM [db_tp_bd_aplicada].[negocio].[Alumno]
-    WHERE NroDoc = @DNI_ALU
 
-    WHILE @CANT_INS_ALU < 5
+    OPEN CursorAlu
+
+    FETCH NEXT FROM CursorAlu INTO @DNI_ALU
+
+    WHILE @@FETCH_STATUS = 0
     BEGIN 
-        EXEC @RAND_COM = [db_utils].[library].[sp_Str_Number_Random] 1,5,2, NULL
 
-        WHILE NOT EXISTS 
-        (
-            SELECT 1
-            FROM @COMISIONES 
-            WHERE ID = @RAND_COM
-        )
+        SELECT @TIPO_DOC_ALU = TipoDoc
+        FROM [db_tp_bd_aplicada].[negocio].[Alumno]
+        WHERE NroDoc = @DNI_ALU
+
+        WHILE @CANT_INS_ALU < 5
         BEGIN 
             EXEC @RAND_COM = [db_utils].[library].[sp_Str_Number_Random] 1,5,2, NULL
-        END
-        SELECT  @TIPO_DOC_INS = TipoDocDocente,
-                @NRO_DOC_INS  = NroDocDocente,
-                @NRO_COM_INS  = NroComision,
-                @COD_MAT_INS  = CodMateria,
-                @CUA_INS      = Cuatrimestre,
-                @DIA_SEM      = DiaSemana,
-                @ANO_INS      = Año
-        FROM @COMISIONES
-        WHERE ID = @RAND_COM
 
-        EXEC [db_tp_bd_aplicada].[negocio].[sp_Inscribirse_Materia] @TIPO_DOC_INS, @NRO_DOC_INS, @TIPO_DOC_ALU ,@DNI_ALU,@NRO_COM_INS, @COD_MAT_INS,@CUA_INS, @DIA_SEM, @ANO_INS
-        SET @CANT_INS_ALU = @CANT_INS_ALU + 1
+            WHILE NOT EXISTS 
+            (
+                SELECT 1
+                FROM @COMISIONES 
+                WHERE ID = @RAND_COM
+            )
+            BEGIN 
+                EXEC @RAND_COM = [db_utils].[library].[sp_Str_Number_Random] 1,5,2, NULL
+            END
+            SELECT  @TIPO_DOC_INS   =     TipoDocDocente,
+                    @NRO_DOC_INS    =     NroDocDocente,
+                    @NRO_COM_INS    =     NroComision,
+                    @COD_MAT_INS    =     CodMateria,
+                    @CUA_INS        =     Cuatrimestre,
+                    @DIA_SEM        =     DiaSemana,
+                    @ANO_INS        =     Año
+            FROM @COMISIONES
+            WHERE ID = @RAND_COM
+
+            EXEC [db_tp_bd_aplicada].
+                 [negocio].
+                 [sp_Inscribirse_Materia] 
+                        @TIPO_DOC_INS, 
+                        @NRO_DOC_INS, 
+                        @TIPO_DOC_ALU, 
+                        @DNI_ALU,
+                        @NRO_COM_INS, 
+                        @COD_MAT_INS,
+                        @CUA_INS,
+                        @DIA_SEM, 
+                        @ANO_INS
+
+            SET @CANT_INS_ALU = @CANT_INS_ALU + 1
+        END
+        SET @CANT_INS_ALU = 0
+        FETCH NEXT FROM CursorAlu INTO @DNI_ALU
     END
-    SET @CANT_INS_ALU = 0
-    FETCH NEXT FROM CursorAlu INTO @DNI_ALU
-END
-CLOSE CursorAlu
+    CLOSE CursorAlu
+END 
+
 
 /* TEST
 SELECT * FROM [db_tp_bd_aplicada].[negocio].[Se_Inscribe] */

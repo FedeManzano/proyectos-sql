@@ -29,4 +29,4 @@ AS
 )
 
 GO
-SELECT * FROM [db_tp_bd_aplicada].[negocio].[Se_Inscribe]
+SELECT Cod_Mat FROM [db_tp_bd_aplicada].[negocio].[vw_Inscripciones]
