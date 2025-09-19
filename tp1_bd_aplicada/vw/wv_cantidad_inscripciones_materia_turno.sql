@@ -5,17 +5,17 @@ CREATE OR ALTER VIEW [negocio].[vw_Cantidad_Inscripciones_Materias_Turno]
 AS 
 (
     SELECT  COD_MAT,
-            CASE ISNULL([TM], 0) 
+            CASE [TM]
                 WHEN 0 THEN 'N/A'
-                ELSE ISNULL([TM], 0)
+                ELSE CAST(ISNULL([TM], 0) AS VARCHAR(5))
             END AS T_MAÑANA,
             CASE ISNULL([TT], 0) 
                 WHEN 0 THEN 'N/A'
-                ELSE ISNULL([TT], 0)
+                ELSE CAST(ISNULL([TT], 0) AS VARCHAR(5))
             END AS T_TARDE,
             CASE ISNULL([TN], 0) 
                 WHEN 0 THEN 'N/A'
-                ELSE ISNULL([TN], 0)
+                ELSE CAST(ISNULL([TN], 0) AS VARCHAR(5))
             END AS T_NOCHE
     FROM 
     (
