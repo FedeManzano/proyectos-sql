@@ -9,12 +9,21 @@ USE db_tp_bd_aplicada
 */
 
 ---- TEST(1) 1 2 3 Esperado Escaleno --------------------------------------
+-- Predefinido lo que espero que devuelva
 DECLARE @RES_ESPERADO INT = 3
+
+-- Lo que obtengo, si es igual a lo que espero TEST OK
 DECLARE @RES_OBTENIDO INT = -1
+
+-- Resultado obtenido desde el OUTPUT del [db_utils].[library].[sp_Validate_Test]
 DECLARE @RES INT = -1
 
-SELECT @RES_OBTENIDO = [db_utils].[library].[fn_Es_Triangulo](1,2,3)
-EXEC @RES = [db_utils].[library].[sp_Validate_Test] 1, @RES_ESPERADO, @RES_OBTENIDO, NULL
+-- Obtengo el valor obtenido
+SELECT @RES_OBTENIDO = [db_utils].[library].[fn_Es_Triangulo](1,2,3) -- Lo que se quiere probar
+
+-- Muestra y devuelve un valor entero con el rsultado del test
+EXEC @RES = [db_utils].[library].[sp_Validate_Test] 1, @RES_ESPERADO, @RES_OBTENIDO, NULL 
+
 
 
 ---- TEST(2) 1 2 3 Esperado Equilatero --------------------------------------
