@@ -24,9 +24,9 @@ BEGIN
     PRINT
     (
         'TEST ('+ CAST( @NRO_TEST AS VARCHAR(MAX) ) +')'+ ': ' + @RESULTADO_DESC +  @DESC_TEST + '| ' + 
-        'E ' + 
+        'ES ' + 
             CAST(@ESPERADO AS VARCHAR(MAX)) + ' <=> ' + 
-        'O ' + 
+        'OB ' + 
             CAST(@OBTENIDO AS VARCHAR(MAX)) 
     )
     RETURN @RES
