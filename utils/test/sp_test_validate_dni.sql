@@ -8,7 +8,7 @@ DECLARE @OBTENIDO INT = [db_utils].[library].[fn_validate_dni]('32595830') -- DN
     TEST 1
     DNI Ok retorno de la función es 1
 */
-EXEC [db_utils].[library].[sp_Validate_Test] 1, 'ENT: 32595830',@ESPERADO, @OBTENIDO, NULL
+EXEC [db_utils].[library].[sp_Assert_Equals] 1, 'ENT: 32595830',@ESPERADO, @OBTENIDO, NULL
 
 SET @ESPERADO = 0
 SET @OBTENIDO = [db_utils].[library].[fn_validate_dni]('3259583') -- DNI Inválido
@@ -17,7 +17,7 @@ SET @OBTENIDO = [db_utils].[library].[fn_validate_dni]('3259583') -- DNI Inváli
     TEST 2
     DNI con menos caracteres (7) retorno de la función es 0
 */
-EXEC [db_utils].[library].[sp_Validate_Test] 2, 'ENT: 3259583',@ESPERADO, @OBTENIDO, NULL 
+EXEC [db_utils].[library].[sp_Assert_Equals] 2, 'ENT: 3259583',@ESPERADO, @OBTENIDO, NULL 
 
 
 SET @ESPERADO = 0
@@ -27,7 +27,7 @@ SET @OBTENIDO = [db_utils].[library].[fn_validate_dni]('325958300') -- DNI Invá
     TEST 3
     DNI con mas caracteres (9) retorno de la función es 0
 */
-EXEC [db_utils].[library].[sp_Validate_Test] 3, 'ENT: 325958300',@ESPERADO, @OBTENIDO, NULL 
+EXEC [db_utils].[library].[sp_Assert_Equals] 3, 'ENT: 325958300',@ESPERADO, @OBTENIDO, NULL 
 
 
 SET @ESPERADO = 0
@@ -37,7 +37,7 @@ SET @OBTENIDO = [db_utils].[library].[fn_validate_dni](' 325958300') -- DNI Inv�
     TEST 4
     DNI con un espacio al inicio
 */
-EXEC [db_utils].[library].[sp_Validate_Test] 4, 'ENT:  32595830',@ESPERADO, @OBTENIDO, NULL 
+EXEC [db_utils].[library].[sp_Assert_Equals] 4, 'ENT:  32595830',@ESPERADO, @OBTENIDO, NULL 
 
 
 SET @ESPERADO = 0
@@ -47,7 +47,7 @@ SET @OBTENIDO = [db_utils].[library].[fn_validate_dni]('32595830 ') -- DNI Invá
     TEST 5
     DNI con un espacio al inicio
 */
-EXEC [db_utils].[library].[sp_Validate_Test] 5, 'ENT: 32595830 ',@ESPERADO, @OBTENIDO, NULL 
+EXEC [db_utils].[library].[sp_Assert_Equals] 5, 'ENT: 32595830 ',@ESPERADO, @OBTENIDO, NULL 
 
 
 
@@ -58,7 +58,7 @@ SET @OBTENIDO = [db_utils].[library].[fn_validate_dni]('3259 583') -- DNI Invál
     TEST 6
     DNI con un espacio al medio
 */
-EXEC [db_utils].[library].[sp_Validate_Test] 6, 'ENT: 3259 583',@ESPERADO, @OBTENIDO, NULL 
+EXEC [db_utils].[library].[sp_Assert_Equals] 6, 'ENT: 3259 583',@ESPERADO, @OBTENIDO, NULL 
 
 
 SET @ESPERADO = 0
@@ -68,7 +68,7 @@ SET @OBTENIDO = [db_utils].[library].[fn_validate_dni]('+3259583') -- DNI Invál
     TEST 7
     DNI con caracteres especiales
 */
-EXEC [db_utils].[library].[sp_Validate_Test] 7, 'ENT: +3259583',@ESPERADO, @OBTENIDO, NULL 
+EXEC [db_utils].[library].[sp_Assert_Equals] 7, 'ENT: +3259583',@ESPERADO, @OBTENIDO, NULL 
 
 
 SET @ESPERADO = 0
@@ -78,7 +78,7 @@ SET @OBTENIDO = [db_utils].[library].[fn_validate_dni]('325-9583') -- DNI Invál
     TEST 8
     DNI con caracteres especiales en medio
 */
-EXEC [db_utils].[library].[sp_Validate_Test] 8, 'ENT: 3259-583',@ESPERADO, @OBTENIDO, NULL 
+EXEC [db_utils].[library].[sp_Assert_Equals] 8, 'ENT: 3259-583',@ESPERADO, @OBTENIDO, NULL 
 
 
 
@@ -89,4 +89,4 @@ SET @OBTENIDO = [db_utils].[library].[fn_validate_dni]('3259583-') -- DNI Invál
     TEST 9
     DNI con caracteres especiales al final
 */
-EXEC [db_utils].[library].[sp_Validate_Test] 9, 'ENT: 3259583-',@ESPERADO, @OBTENIDO, NULL 
+EXEC [db_utils].[library].[sp_Assert_Equals] 9, 'ENT: 3259583-',@ESPERADO, @OBTENIDO, NULL 

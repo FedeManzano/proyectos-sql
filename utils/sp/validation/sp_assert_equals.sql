@@ -1,7 +1,7 @@
 USE db_utils 
 
 GO
-CREATE OR ALTER PROCEDURE [library].[sp_Validate_Test]
+CREATE OR ALTER PROCEDURE [library].[sp_Assert_Equals]
 @NRO_TEST                   INT,
 @DESC_TEST                  NVARCHAR(MAX),
 @ESPERADO                   INT,
@@ -23,10 +23,10 @@ BEGIN
     END
     PRINT
     (
-        'TEST ('+ CAST( @NRO_TEST AS VARCHAR(MAX) ) +')'+ ': ' + @RESULTADO_DESC +  @DESC_TEST + ' ' + 
-        'ESP: ' + 
-            CAST(@ESPERADO AS VARCHAR(MAX)) + ', ' + 
-        'OBT: ' + 
+        'TEST ('+ CAST( @NRO_TEST AS VARCHAR(MAX) ) +')'+ ': ' + @RESULTADO_DESC +  @DESC_TEST + '| ' + 
+        'E ' + 
+            CAST(@ESPERADO AS VARCHAR(MAX)) + ' <=> ' + 
+        'O ' + 
             CAST(@OBTENIDO AS VARCHAR(MAX)) 
     )
     RETURN @RES

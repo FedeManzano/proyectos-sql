@@ -40,3 +40,5 @@ BEGIN
 END 
 ---------------------------------------------------------------------
 
+-- BRORRAR LA BASE DE DATOS
+-- DROP DATABASE db_utils
