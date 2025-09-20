@@ -86,6 +86,7 @@ BEGIN
     PRINT('-----------------------------------------------------------')
 END 
 
+--- EJECUTAR PRUEBAS
 EXEC [db_utils].[test].[sp_test_rango_inicial_neg_ret_cero]
 EXEC [db_utils].[test].[sp_test_rango_inicial_igual_final_cero]
 EXEC [db_utils].[test].[sp_test_rango_final_igual_diez_0]

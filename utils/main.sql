@@ -14,6 +14,7 @@
    /sp/random/sp_date_random
    /sp/random/sp_letter_random
    /sp/random/sp_number_random
+   /sp/random/sp_validate_test
 */
 
 
