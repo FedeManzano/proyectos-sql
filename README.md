@@ -22,7 +22,7 @@ La estructura de cada proyecto está predefinida y se pude ver en ```/estructura
         * <b>:open_file_folder: validation</b>
             * <i>:page_facing_up: sp_assert_equals.sql</i>
 
-:green-book:[Documetación Dependencias](utils/README.md)
+:green_book: [Documetación Dependencias](utils/README.md)
 
 
 
