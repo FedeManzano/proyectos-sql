@@ -10,20 +10,20 @@ CREATE OR ALTER PROCEDURE [library].[sp_Validate_Test]
 AS 
 BEGIN
 
-    DECLARE @RESULTADO_DESC VARCHAR(10) = ''
+    DECLARE @RESULTADO_DESC VARCHAR(18) = ''
     IF @ESPERADO = @OBTENIDO
     BEGIN
-        SET @RESULTADO_DESC = ' PASS - '
+        SET @RESULTADO_DESC = ' PASS_OK - '
         SET @RES = 1
     END
     ELSE 
     BEGIN
-        SET @RESULTADO_DESC = ' FAIL - '
+        SET @RESULTADO_DESC = ' ¡¡¡FAIL_!!! - '
         SET @RES = 0
     END
     PRINT
     (
-        'TEST '+ CAST( @NRO_TEST AS VARCHAR(MAX) ) + ' :' + @RESULTADO_DESC +  @DESC_TEST + ' ' + 
+        'TEST ('+ CAST( @NRO_TEST AS VARCHAR(MAX) ) +')'+ ': ' + @RESULTADO_DESC +  @DESC_TEST + ' ' + 
         'ESP: ' + 
             CAST(@ESPERADO AS VARCHAR(MAX)) + ', ' + 
         'OBT: ' + 

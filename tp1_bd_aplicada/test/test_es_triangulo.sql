@@ -26,17 +26,17 @@ EXEC @RES = [db_utils].[library].[sp_Validate_Test] 1,
             @RES_OBTENIDO,
             NULL
 
-
-
-
-
 ---- TEST(2) 1 2 3 Esperado Equilatero --------------------------------------
 SET @RES_ESPERADO = 1
 SET @RES_OBTENIDO = -1
 SET @RES = -1
 
 SELECT @RES_OBTENIDO = [db_utils].[library].[fn_Es_Triangulo](1,1,1)
-EXEC @RES = [db_utils].[library].[sp_Validate_Test] 2,'EsEquilatero_(1)_(1)_(1)', @RES_ESPERADO, @RES_OBTENIDO, NULL
+EXEC @RES = [db_utils].[library].[sp_Validate_Test] 2,
+            'EsEquilatero_(1)_(1)_(1)', 
+            @RES_ESPERADO, 
+            @RES_OBTENIDO, 
+            NULL
 
 
 ---- TEST(3) 1 2 3 Esperado Isosceles --------------------------------------
