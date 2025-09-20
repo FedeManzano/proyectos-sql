@@ -28,7 +28,7 @@ Para utilizar cualquiera de los proyectos que se encuentren en este repositorio 
 
 ## Proyectos
 
--  :closed_book: [TP1 BD Aplicada](tp1_bd_aplicada/README.md)
+-  :closed_book: [TP1 BD Aplicada](tp1_bd_aplicada)
 
 
 ### Autor
