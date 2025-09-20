@@ -1,20 +1,19 @@
 /**
    Funcionalidades reutilizables para colaborar con los diseños de otras bases de datos
 
-*/
-/*
    1 - CREAR LA BASE DE DATOS Y LOS ESQUEMAS
    
    2 - FN
    /fn/fn_validate_dni.sql
    /fn/fn_validate_email.sql
-
+   /fn/fn_lados_triangulo.sql
+   
    3 - SP
    /sp/format/sp_format_tittle.sql
    /sp/random/sp_date_random
    /sp/random/sp_letter_random
    /sp/random/sp_number_random
-   /sp/random/sp_validate_test
+   /sp/validation/sp_validate_test
 */
 
 
