@@ -61,5 +61,9 @@ END
 ---------------------------------------------------------------------------------
 ```
 
+## Consignas
+
+::green_book:: [Consignas PDF](/tp1_bd_aplicada/req/Unidad-1---TP_1.pdf)
+
 ## Autor
 [Federico Manzano](https://github.com/FedeManzano)
