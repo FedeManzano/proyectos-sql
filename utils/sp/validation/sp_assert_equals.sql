@@ -23,7 +23,7 @@ BEGIN
     END
     PRINT
     (
-        'TEST ('+ CAST( @NRO_TEST AS VARCHAR(MAX) ) +')'+ ': ' + @RESULTADO_DESC +  @DESC_TEST + '| ' + 
+        'TEST ('+ CAST( @NRO_TEST AS VARCHAR(MAX) ) +')'+ ': ' + @RESULTADO_DESC +  @DESC_TEST + ' | ' + 
         'ES ' + 
             CAST(@ESPERADO AS VARCHAR(MAX)) + ' <=> ' + 
         'OB ' + 
