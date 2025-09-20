@@ -7,6 +7,8 @@ La estructura de cada proyecto está predefinida y se pude ver en ```/estructura
 
 ### :heavy_plus_sign: Estructura
 
+Para utilizar cualquiera de los proyectos que se encuentren en este repositorio es necesario crear las dependencias que se detallan en la siguiente estructira:
+
 - <b>:file_folder: utils</b>
     * <b>:open_file_folder: fn</b>
         * <i>:page_facing_up: fn_lados_triangulo.sql (Utilizado para test)</i>
@@ -23,9 +25,6 @@ La estructura de cada proyecto está predefinida y se pude ver en ```/estructura
             * <i>:page_facing_up: sp_assert_equals.sql</i>
 
 :green_book: [Documetación Dependencias](utils/README.md)
-
-
-
 
 ### Autor
 [FedeManzano](https://github.com/FedeManzano)
