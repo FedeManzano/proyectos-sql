@@ -47,24 +47,34 @@ END
 
 ### fn_validate_email
 
-Función para validar un correo electrónico 
-1 si es válido y 0 si no lo es.
+Función para validar un correo electrónico 1 si es válido y 0 si no lo es.
 
 ```SQL
-USE db_utils 
+/***
+	Función para validar el correo electrónico 
+	- Si el valor devuelto es 1 -> el correo es válido
+	- Si el valor devuelto es 0 -> el correo es inválido
+*/
+
 
 GO 
-CREATE OR ALTER FUNCTION [library].[fn_Validate_Email](@EMAIL VARCHAR(100))
+CREATE OR ALTER FUNCTION [library].[fn_Validate_Email](@EMAIL VARCHAR(MAX))
 RETURNS TINYINT 
 AS 
 BEGIN 
-    IF  @EMAIL LIKE '%[^a-zA-Z0-9@._-]%' OR  
-        @EMAIL LIKE '%@%@%'              OR 
-        @EMAIL LIKE '%.@%'               OR 
-        @EMAIL LIKE '%@.%'               OR 
-        @EMAIL NOT LIKE '%.[A-Za-z0-9-_][A-Za-z0-9-_][A-Za-z0-9-_]'
-            RETURN 0
-        RETURN 1
+    IF	  @EMAIL LIKE		'%@%.%'
+	  AND @EMAIL NOT LIKE	'-%'
+	  AND @EMAIL NOT LIKE	'% %'
+	  AND @EMAIL NOT LIKE	'%[^a-zA-Z0-9@._-]%'
+	  AND @EMAIL NOT LIKE	'%@%@%'
+	  AND @EMAIL NOT LIKE	'%@.%'
+	  AND @EMAIL NOT LIKE	'.%'
+	  AND @EMAIL NOT LIKE	'%.'
+	  AND @EMAIL LIKE		'%@%'
+	  AND @EMAIL LIKE		'%.%'
+	  AND LEN(@EMAIL) >= 6
+	  RETURN 1
+        RETURN 0
 END
 ```
 
