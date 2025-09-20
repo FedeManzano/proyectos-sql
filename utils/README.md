@@ -128,6 +128,48 @@ BEGIN
     SET @CADENA = TRIM(@CADENA)
 END
 ```
+
+### sp_validate_test
+
+Procedimiento almacenado para ser reutilizado en todos los test unitarios:
+Imprime el resultado por la consola de mensajes y evalúa el resultado obtenido con el esperado
+
+```SQL 
+USE db_utils 
+
+GO
+CREATE OR ALTER PROCEDURE [library].[sp_Validate_Test]
+@NRO_TEST                   INT,
+@DESC_TEST                  NVARCHAR(MAX),
+@ESPERADO                   INT,
+@OBTENIDO                   INT,
+@RES                        INT = -1 OUTPUT
+AS 
+BEGIN
+
+    DECLARE @RESULTADO_DESC VARCHAR(18) = ''
+    IF @ESPERADO = @OBTENIDO
+    BEGIN
+        SET @RESULTADO_DESC = ' PASS_OK - '
+        SET @RES = 1
+    END
+    ELSE 
+    BEGIN
+        SET @RESULTADO_DESC = ' ¡¡¡FAIL_!!! - '
+        SET @RES = 0
+    END
+    PRINT
+    (
+        'TEST ('+ CAST( @NRO_TEST AS VARCHAR(MAX) ) +')'+ ': ' + @RESULTADO_DESC +  @DESC_TEST + ' ' + 
+        'ESP: ' + 
+            CAST(@ESPERADO AS VARCHAR(MAX)) + ', ' + 
+        'OBT: ' + 
+            CAST(@OBTENIDO AS VARCHAR(MAX)) 
+    )
+    RETURN @RES
+END
+```
+
 ### Autor
 
 [Federico Manzano](https://github.com/FedeManzano)
