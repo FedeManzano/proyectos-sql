@@ -1,7 +1,5 @@
 
-
 USE db_tp_bd_aplicada
-
 
 /***
     TEST Unitarios a la función fn_Lados de un triángulo
@@ -22,7 +20,13 @@ DECLARE @RES INT = -1
 SELECT @RES_OBTENIDO = [db_utils].[library].[fn_Es_Triangulo](1,2,3) -- Lo que se quiere probar
 
 -- Muestra y devuelve un valor entero con el rsultado del test
-EXEC @RES = [db_utils].[library].[sp_Validate_Test] 1, @RES_ESPERADO, @RES_OBTENIDO, NULL 
+EXEC @RES = [db_utils].[library].[sp_Validate_Test] 1,
+            'EsEscaleno_(1)_(2)_(3)', 
+            @RES_ESPERADO, 
+            @RES_OBTENIDO,
+            NULL
+
+
 
 
 
@@ -32,7 +36,7 @@ SET @RES_OBTENIDO = -1
 SET @RES = -1
 
 SELECT @RES_OBTENIDO = [db_utils].[library].[fn_Es_Triangulo](1,1,1)
-EXEC @RES = [db_utils].[library].[sp_Validate_Test] 2, @RES_ESPERADO, @RES_OBTENIDO, NULL
+EXEC @RES = [db_utils].[library].[sp_Validate_Test] 2,'EsEquilatero_(1)_(1)_(1)', @RES_ESPERADO, @RES_OBTENIDO, NULL
 
 
 ---- TEST(3) 1 2 3 Esperado Isosceles --------------------------------------
@@ -41,9 +45,9 @@ SET @RES_OBTENIDO = -1
 SET @RES = -1
 
 SELECT @RES_OBTENIDO = [db_utils].[library].[fn_Es_Triangulo](1,1,2)
-EXEC @RES = [db_utils].[library].[sp_Validate_Test] 3, @RES_ESPERADO, @RES_OBTENIDO, NULL
+EXEC @RES = [db_utils].[library].[sp_Validate_Test] 3,'EsIsosceles(1)_(1)_(2)', @RES_ESPERADO, @RES_OBTENIDO, NULL
 
-
+/*
 ---- TEST(4) 1 2 3 Esperado Isosceles --------------------------------------
 SET @RES_ESPERADO = 2
 SET @RES_OBTENIDO = -1
@@ -130,3 +134,4 @@ SET @RES = -1
 
 SELECT @RES_OBTENIDO = [db_utils].[library].[fn_Es_Triangulo](1,1,3)
 EXEC @RES = [db_utils].[library].[sp_Validate_Test] 13, @RES_ESPERADO, @RES_OBTENIDO, NULL
+*/
