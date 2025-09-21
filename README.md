@@ -11,7 +11,7 @@ Para utilizar cualquiera de los proyectos que se encuentren en este repositorio 
 
 - <b>:file_folder: utils</b>
     * <b>:open_file_folder: fn</b>
-        * <i>:page_facing_up: fn_lados_triangulo.sql (Utilizado para test)</i>
+        * <i>:page_facing_up: fn_lados_triangulo.sql</span> (Utilizado para test)</i>
         * <i>:page_facing_up: fn_validate_dni.sql</i>
         * <i>:page_facing_up: fn_validate_email.sql</i>
      * <b>:open_file_folder: sp</b>

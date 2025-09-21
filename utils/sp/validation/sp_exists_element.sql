@@ -10,7 +10,16 @@ CREATE OR ALTER PROCEDURE [library].[sp_Exists_Element]
 @RETURN     INT OUTPUT
 AS 
 BEGIN 
-    SET @RETURN = -1
+
+    IF  @N_DB       IS NULL     OR 
+        @N_SCH      IS NULL     OR  
+        @N_TABLA    IS NULL 
+    BEGIN 
+        SET @RETURN = 0
+        RETURN @RETURN
+    END 
+            
+    
     IF NOT EXISTS 
     (
         SELECT 1
@@ -22,6 +31,8 @@ BEGIN
         RETURN @RETURN
     END
     
+    SET @RETURN = -1
+
     DECLARE @TA TABLE 
     (
         VAL INT

@@ -6,8 +6,6 @@ USE db_utils
 	- Si el valor devuelto es 1 -> el correo es válido
 	- Si el valor devuelto es 0 -> el correo es inválido
 */
-
-
 GO 
 CREATE OR ALTER FUNCTION [library].[fn_Validate_Email](@EMAIL VARCHAR(MAX))
 RETURNS TINYINT 

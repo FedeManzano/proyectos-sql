@@ -52,8 +52,6 @@ SET @OBTENIDO = [db_utils].[library].[fn_Validate_Email]('federico@gmail.com*')
 
 EXEC [db_utils].[library].[sp_Assert_Equals] 6, 'ENT: federico@gmail.com*',@ESPERADO, @OBTENIDO, NULL
 
-
-
 /***
     TEST 7 email caracter punto al lado delante de la arroba
 */
