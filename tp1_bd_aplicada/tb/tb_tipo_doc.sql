@@ -25,3 +25,5 @@ ELSE PRINT('*** La tabla [Tipo_Doc] ya existe en la base de datos')
 
 -- TRUNCATE TABLE [db_tp_bd_aplicada].[negocio].[Tipo_Doc]
 -- DROP TABLE [db_tp_bd_aplicada].[negocio].[Tipo_Doc]
+
+SELECT * FROM [db_tp_bd_aplicada].[negocio].[Tipo_Doc]
