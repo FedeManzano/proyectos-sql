@@ -1,12 +1,11 @@
 USE db_tp_bd_aplicada 
 /*
-SCRIPT Que crea las tablas y las llena con datos de prueba aleatorios
-Este archivo no sigue las buenas prácticas de programación, es solo para crear
-las tablas y cargarlas de información de prueba. 
-Las tablas tienen que ser creadas individualmente desde los archivos pertenecientes
-al path /tb/ dentro de este proyecto.
+    SCRIPT Que crea las tablas y las llena con datos de prueba aleatorios
+    Este archivo no sigue las buenas prácticas de programación, es solo para crear
+    las tablas y cargarlas de información de prueba. 
+    Las tablas tienen que ser creadas individualmente desde los archivos pertenecientes
+    al path /tb/ dentro de este proyecto.
 */
-
 
 IF NOT EXISTS 
 (
@@ -690,4 +689,4 @@ END
 
 
 /* TEST
-SELECT * FROM [db_tp_bd_aplicada].[negocio].[Comision] */
+SELECT * FROM [db_tp_bd_aplicada].[negocio].[Se_Inscribe] */
