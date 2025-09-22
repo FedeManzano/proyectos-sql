@@ -9,6 +9,10 @@
 En este repositorio se agregaron algunos ejercicios de SQL junto con un conjunto de dependencias las cuales permiten separar y reutilizar la lógica de las funcionalidades comunes a todos los proyectos.
 La estructura de cada proyecto está predefinida y se pude ver en ```/estructura_basica``` dentro  del repositorio, a su vez también se encuentra :green_book: [db_utils](/utils/) con las dependencias antes mencionadas. Todos lo proyectos dependen de la Base de Datos generada en este directorio del proyecto.
 
+## Recursos
+
+- :open_file_folder: [PORTADA](https://www.bairesdev.com/blog/what-is-sql-server/)
+
 ## :wrench: Dependencia (db_utils)
 
 ### :heavy_plus_sign: Estructura
