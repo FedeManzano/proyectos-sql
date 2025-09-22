@@ -1,6 +1,6 @@
 
 <p align='center'>
-    <img src="portada/portadaSql.jpg" 
+    <img src="portada/portada.jpg" 
     style="width: 470px; height: 350px; border-radius: 15px">
 </p>
 
