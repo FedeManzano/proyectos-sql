@@ -18,7 +18,7 @@ BEGIN
     END
     ELSE 
     BEGIN
-        SET @RESULTADO_DESC = ' ¡¡¡FAIL_!!! - '
+        SET @RESULTADO_DESC = ' FAIL_!! - '
         SET @RES = 0
     END
     PRINT
