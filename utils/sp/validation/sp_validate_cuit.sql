@@ -37,20 +37,33 @@ BEGIN
     (       3       ),
     (       2       )
 
-    DECLARE @DIG_VER INT = RIGHT(@CUIT, 1)
-
+    DECLARE @DIG_VER        INT = RIGHT(@CUIT, 1)
     DECLARE @CANT_NUM       INT = 0
     DECLARE @COHEF_ACTUAL   INT = 0
     DECLARE @SUM            INT = 0
     DECLARE @CAR_ACTUAL     CHAR
 
+
     WHILE @CANT_NUM < 10
     BEGIN 
-        SET @COHEF_ACTUAL = (SELECT TOP(1)Cohef FROM @COHEFICIENTES)
+        SET @COHEF_ACTUAL = 
+        ( 
+            SELECT TOP(1) Cohef 
+            FROM @COHEFICIENTES
+        )
 
-        SET @CAR_ACTUAL = SUBSTRING(@CUIT, @CANT_NUM + 1, 1)
+        SET @CAR_ACTUAL = SUBSTRING
+        (
+            @CUIT, 
+            @CANT_NUM + 
+            1, 
+            1
+        )
 
-        SET @SUM = @SUM + (CAST(@CAR_ACTUAL AS INT) * @COHEF_ACTUAL)
+        SET @SUM = @SUM + 
+        (
+            CAST(@CAR_ACTUAL AS INT) * @COHEF_ACTUAL
+        )
 
         SET @CANT_NUM = @CANT_NUM + 1
         DELETE TOP(1) FROM @COHEFICIENTES
@@ -61,12 +74,12 @@ BEGIN
 
     IF @RES = @DIG_VER
     BEGIN 
-        SET @RES = 1
-        RETURN 1
+        SET @RES    = 1
+        RETURN        1
     END
     ELSE 
     BEGIN 
-        SET @RES = 0
-        RETURN -1
+        SET @RES =  -1
+        RETURN      -1
     END
 END
