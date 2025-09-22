@@ -47,12 +47,10 @@ SET @OBTENIDO = [db_utils].[library].[fn_validate_dni]('32595830 ') -- DNI Invá
     TEST 5
     DNI con un espacio al inicio
 */
-EXEC [db_utils].[library].[sp_Assert_Equals] 5, 'ENT: 32595830 ',@ESPERADO, @OBTENIDO, NULL 
-
-
-
 SET @ESPERADO = 0
 SET @OBTENIDO = [db_utils].[library].[fn_validate_dni]('3259 583') -- DNI Inválido
+
+EXEC [db_utils].[library].[sp_Assert_Equals] 5, 'ENT: 3259 830 ',@ESPERADO, @OBTENIDO, NULL 
 
 /**
     TEST 6
@@ -90,3 +88,13 @@ SET @OBTENIDO = [db_utils].[library].[fn_validate_dni]('3259583-') -- DNI Invál
     DNI con caracteres especiales al final
 */
 EXEC [db_utils].[library].[sp_Assert_Equals] 9, 'ENT: 3259583-',@ESPERADO, @OBTENIDO, NULL 
+
+
+SET @ESPERADO = 0
+SET @OBTENIDO = [db_utils].[library].[fn_validate_dni]('325958300') -- DNI Inválido
+
+/**
+    TEST 10
+    DNI mas de 8 caracteres
+*/
+EXEC [db_utils].[library].[sp_Assert_Equals] 10, 'ENT: 325958300',@ESPERADO, @OBTENIDO, NULL 
