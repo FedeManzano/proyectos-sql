@@ -1,20 +1,27 @@
 # Documentación de las dependendencias SQL
 
-```SQL
-/*
-   1 - CREAR LA BASE DE DATOS Y LOS ESQUEMAS
-   
-   2 - FN
-   /fn/fn_validate_dni.sql
-   /fn/fn_validate_email.sql
+Un conjunto reducido de funcionalidades SQl para reutilizar, el objetivo es de aprendizaje del lenguaje.
 
-   3 - SP
-   /sp/format/sp_format_tittle.sql
-   /sp/random/sp_date_random
-   /sp/random/sp_letter_random
-   /sp/random/sp_number_random
-*/
-```
+## Creación de elementos
+
+Dentro de el direcorio ```db_utils``` se encuentran las dependencias que se utilizan en todos los proyectos de este repositorio, por lo tanto es necesario crearlas para utilizar los ejemplos expuestos.
+
+- :green_book: <b>db_utils</b> (Crear la BD)
+    - :open_file_folder: <b>fn</b>
+        - :page_facing_up: <i>fn_lados_triangulo.sql</i>
+        - :page_facing_up: <i>fn_validate_dni.sql</i>
+        - :page_facing_up: <i>fn_validate_email.sql</i>
+    - <b>sp</b>
+        - :open_file_folder: <b>format</b>
+            - :page_facing_up: <i>sp_format_tittle.sql</i> 
+        - :open_file_folder: <b>random</b>
+            - :page_facing_up: <i>sp_str_letter_random.sql</i> 
+            - :page_facing_up: <i>sp_str_number_random.sql</i>
+            - :page_facing_up: <i>sp_str_date_random.sql</i>
+        - :open_file_folder: <b>validate</b> 
+            - :page_facing_up: <i>sp_assert_equals.sql</i>
+            - :page_facing_up: <i>sp_exists_element.sql</i>
+
 
 ## Funciones
 
