@@ -340,6 +340,8 @@ BEGIN
             @F_ING              DATE,
             @CANT               INT = 0,
             @CARGO              VARCHAR(30) = ''
+
+            
     DECLARE ClavesPersona CURSOR FOR
     SELECT NroDoc FROM [negocio].[Persona];
     OPEN ClavesPersona;
