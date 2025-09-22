@@ -9,20 +9,21 @@ La estructura de cada proyecto está predefinida y se pude ver en ```/estructura
 
 Para utilizar cualquiera de los proyectos que se encuentren en este repositorio es necesario crear las dependencias que se detallan en la siguiente estructira:
 
-- <b>:file_folder: utils</b>
-    * <b>:open_file_folder: fn</b>
-        * <i>:page_facing_up: fn_lados_triangulo.sql</span> (Utilizado para test)</i>
-        * <i>:page_facing_up: fn_validate_dni.sql</i>
-        * <i>:page_facing_up: fn_validate_email.sql</i>
-     * <b>:open_file_folder: sp</b>
-        * <b>:open_file_folder: format</b>
-            * <i>:page_facing_up: sp_format_tittle.sql</i>
-        * <b>:open_file_folder: random</b>
-            * <i>:page_facing_up: sp_date_random.sql</i>
-            * <i>:page_facing_up: sp_str_letter_random.sql</i>
-            * <i>:page_facing_up: sp_str_number_random.sql</i>
-        * <b>:open_file_folder: validation</b>
-            * <i>:page_facing_up: sp_assert_equals.sql</i>
+- :green_book: <b>db_utils</b> (Crear la BD)
+    - :open_file_folder: <b>fn</b>
+        - :page_facing_up: <i>fn_lados_triangulo.sql</i>
+        - :page_facing_up: <i>fn_validate_dni.sql</i>
+        - :page_facing_up: <i>fn_validate_email.sql</i>
+    - <b>sp</b>
+        - :open_file_folder: <b>format</b>
+            - :page_facing_up: <i>sp_format_tittle.sql</i> 
+        - :open_file_folder: <b>random</b>
+            - :page_facing_up: <i>sp_str_letter_random.sql</i> 
+            - :page_facing_up: <i>sp_str_number_random.sql</i>
+            - :page_facing_up: <i>sp_str_date_random.sql</i>
+        - :open_file_folder: <b>validate</b> 
+            - :page_facing_up: <i>sp_assert_equals.sql</i>
+            - :page_facing_up: <i>sp_exists_element.sql</i>
 
 :green_book: [Documetación Dependencias](utils/README.md)
 
