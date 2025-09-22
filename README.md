@@ -11,7 +11,7 @@ La estructura de cada proyecto está predefinida y se pude ver en ```/estructura
 
 ## Recursos
 
-- :open_file_folder: [PORTADA](https://www.bairesdev.com/blog/what-is-sql-server/)
+- :page_facing_up:[PORTADA](https://www.bairesdev.com/blog/what-is-sql-server/)
 
 ## :wrench: Dependencia (db_utils)
 
