@@ -67,6 +67,6 @@ BEGIN
     ELSE 
     BEGIN 
         SET @RES = 0
-        RETURN 0
+        RETURN -1
     END
 END
