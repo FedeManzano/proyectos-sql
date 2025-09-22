@@ -1,7 +1,7 @@
 
 <p align='center'>
     <img src="portada/portadaSql.jpg" 
-    style="width: 400px; height: 350pxborder-radius: 15px">
+    style="width: 470px; height: 350px; border-radius: 15px">
 </p>
 
 # :red_circle: Proyectos SQL
