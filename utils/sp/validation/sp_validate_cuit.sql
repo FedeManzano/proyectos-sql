@@ -1,11 +1,23 @@
 USE db_utils
 
+/****
+    Procedimiento almacenado para validar un cuit según su dígito 
+    verificados, si el cuit es válido       @RES OUTPUT =    1
+                 si el cuit no es válido    @RES OUTPUT =   -1
+    
+    EJ 
+    DECLARE @R INT = -1
+    EXEC [db_utils].[library].[sp_Validate_Cuit] '20325958309', @R OUTPUT
+    SELECT @R --> MUESTRA 1
+*/
 GO
 CREATE OR ALTER PROCEDURE [library].[sp_Validate_Cuit]
 @CUIT   VARCHAR(MAX),
-@RES    INT = 0         OUTPUT
+@RES    INT = -1         OUTPUT
 AS 
 BEGIN 
+
+    SET @RES = -1
     IF @CUIT IS NULL 
         RETURN -1
     
