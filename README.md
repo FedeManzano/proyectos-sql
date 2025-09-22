@@ -24,6 +24,7 @@ Para utilizar cualquiera de los proyectos que se encuentren en este repositorio 
         - :open_file_folder: <b>validate</b> 
             - :page_facing_up: <i>sp_assert_equals.sql</i>
             - :page_facing_up: <i>sp_exists_element.sql</i>
+            - :page_facing_up: <i>sp_validate_cuit.sql</i>
 
 :green_book: [Documetación Dependencias](utils/README.md)
 

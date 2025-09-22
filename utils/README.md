@@ -21,7 +21,7 @@ Dentro de el direcorio ```db_utils``` se encuentran las dependencias que se util
         - :open_file_folder: <b>validate</b> 
             - :page_facing_up: <i>sp_assert_equals.sql</i>
             - :page_facing_up: <i>sp_exists_element.sql</i>
-
+            - :page_facing_up: <i>sp_validate_cuit.sql</i>
 
 ## Funciones
 
