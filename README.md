@@ -1,7 +1,7 @@
 # :red_circle: Proyectos SQL
 
 En este repositorio se agregaron algunos ejercicios de SQL junto con un conjunto de dependencias las cuales permiten separar y reutilizar la lógica de las funcionalidades comunes a todos los proyectos.
-La estructura de cada proyecto está predefinida y se pude ver en ```/estructura_basica``` dentro  del repositorio, a su vez también se encuentra ```/db_utils``` con las dependencias antes mencionadas. Todos lo proyectos dependen de la Base de Datos generada en este directorio del proyecto.
+La estructura de cada proyecto está predefinida y se pude ver en ```/estructura_basica``` dentro  del repositorio, a su vez también se encuentra :green_book: [db_utils](/utils/) con las dependencias antes mencionadas. Todos lo proyectos dependen de la Base de Datos generada en este directorio del proyecto.
 
 ## :wrench: Dependencia (db_utils)
 
@@ -9,7 +9,7 @@ La estructura de cada proyecto está predefinida y se pude ver en ```/estructura
 
 Para utilizar cualquiera de los proyectos que se encuentren en este repositorio es necesario crear las dependencias que se detallan en la siguiente estructira:
 
-- :green_book: <b>db_utils</b> (Crear la BD)
+- :green_book: <b>[db_utils](/utils/)</b> (Crear la BD)
     - :open_file_folder: <b>fn</b>
         - :page_facing_up: <i>fn_lados_triangulo.sql</i>
         - :page_facing_up: <i>fn_validate_dni.sql</i>
