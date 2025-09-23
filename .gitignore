@@ -10,6 +10,7 @@ backup/
 # Ignore system files
 Thumbs.db
 .DS_Store
+sql_proyectos.code-workspace
 
 # Ignore logs
 *.log
