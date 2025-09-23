@@ -6,6 +6,7 @@
 - SQL Server 2016 o superior (recomendado)
 - Permisos para crear bases de datos y objetos (funciones, procedimientos)
 - Cliente SQL compatible (SQL Server Management Studio, Azure Data Studio o extensión SQL para VS Code)
+- Software [Drawio Oficial](https://www.drawio.com/) para poder abrir los archivos con los diseños.
 - Conocimientos básicos de T-SQL
 
 Un conjunto reducido de funcionalidades SQL para reutilizar. El objetivo es el aprendizaje del lenguaje.

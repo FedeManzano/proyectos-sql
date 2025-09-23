@@ -11,6 +11,7 @@
 - SQL Server 2016 o superior (recomendado)
 - Permisos para crear bases de datos y objetos (funciones, procedimientos)
 - Cliente SQL compatible (SQL Server Management Studio, Azure Data Studio o extensión SQL para VS Code)
+- Software [Drawio Oficial](https://www.drawio.com/) para poder abrir los archivos con los diseños.
 - Conocimientos básicos de T-SQL
 
 En este repositorio se incluyen ejercicios de SQL junto con un conjunto de dependencias que permiten separar y reutilizar la lógica de funcionalidades comunes a todos los proyectos.
@@ -20,7 +21,6 @@ La estructura de cada proyecto está predefinida y puede verse en ```/estructura
 ## Recursos
 
 - :page_facing_up: [PORTADA](https://www.bairesdev.com/blog/what-is-sql-server/)
-
 
 ## :wrench: Dependencia (db_utils)
 
