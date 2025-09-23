@@ -1,4 +1,12 @@
+
 # TP1 BD Aplicada
+
+## Requisitos previos
+
+- SQL Server 2016 o superior (recomendado)
+- Permisos para crear bases de datos y objetos (funciones, procedimientos)
+- Cliente SQL compatible (SQL Server Management Studio, Azure Data Studio o extensión SQL para VS Code)
+- Conocimientos básicos de T-SQL
 
 TP 1 de la materia ```Bases de Datos Aplicada``` de la <b> [Universidad de la Matanza](https://www.unlam.edu.ar)</b>.
 

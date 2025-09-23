@@ -1,6 +1,14 @@
-# Documentación de las dependendencias SQL
 
-Un conjunto reducido de funcionalidades SQl para reutilizar, el objetivo es de aprendizaje del lenguaje.
+# Documentación de las dependencias SQL
+
+## Requisitos previos
+
+- SQL Server 2016 o superior (recomendado)
+- Permisos para crear bases de datos y objetos (funciones, procedimientos)
+- Cliente SQL compatible (SQL Server Management Studio, Azure Data Studio o extensión SQL para VS Code)
+- Conocimientos básicos de T-SQL
+
+Un conjunto reducido de funcionalidades SQL para reutilizar. El objetivo es el aprendizaje del lenguaje.
 
 ## Creación de elementos
 
