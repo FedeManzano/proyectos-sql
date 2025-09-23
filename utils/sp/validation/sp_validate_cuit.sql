@@ -23,9 +23,9 @@ BEGIN
     
     SET @CUIT = REPLACE(@CUIT, '-', '')
 
-    IF  LEN(@CUIT)  <>      11          AND
-        @CUIT       LIKE    '%[^0-9]%'
-        RETURN -1
+        IF  LEN(@CUIT)  <>      11          OR
+            @CUIT       LIKE    '%[^0-9]%'
+            RETURN -1
 
     IF LEFT(@CUIT, 2) NOT IN (20, 23, 24, 25, 26, 27)
         RETURN -1
