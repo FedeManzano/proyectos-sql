@@ -15,6 +15,5 @@ BEGIN
         RETURN 1 -- Equilátero
     IF @LADOA = @LADOB OR @LADOA = @LADOC OR @LADOB = @LADOC
         RETURN 2 -- Isósceles
-    RETURN 3 -- Escaleno
-    RETURN 0    
+    RETURN 3 -- Escaleno 
 END
