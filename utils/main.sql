@@ -14,7 +14,23 @@
    /sp/random/sp_letter_random
    /sp/random/sp_number_random
    /sp/validation/sp_asset_equals.sql
-   /sp/validation/sp_validate_cuit.sql
+   /sp/validation/sp_assert_not_null.sql
+   /sp/validation/sp_assert_greater_than.sql
+   /sp/validation/sp_assert_less_than.sql
+   /sp/validation/sp_assert_like.sql
+   /sp/validation/sp_assert_in_range.sql
+   /sp/validation/sp_assert_not_in_range.sql
+   /sp/validation/sp_assert_true.sql
+   /sp/validation/sp_assert_false.sql
+   /sp/validation/sp_assert_is_null.sql
+   /sp/validation/sp_assert_is_not_null.sql
+   /sp/validation/sp_assert_date_equals.sql
+   /sp/validation/sp_assert_string_equals.sql
+   /sp/validation/sp_assert_string_not_equals.sql
+   /sp/validation/sp_assert_string_like.sql
+   /sp/validation/sp_assert_string_not_like.sql
+   /sp/validation/sp_assert_string_in_range.sql
+   /sp/validation/sp_assert_string_not_in_range.sql
 */
 
 
