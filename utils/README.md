@@ -28,7 +28,10 @@ Dentro de el direcorio ```db_utils``` se encuentran las dependencias que se util
             - :page_facing_up: <i>sp_str_number_random.sql</i>
             - :page_facing_up: <i>sp_str_date_random.sql</i>
         - :open_file_folder: <b>validate</b> 
-            - :page_facing_up: <i>sp_assert_equals.sql</i>
+            - :open_file_folder: <b>test</b> 
+                - :page_facing_up: <i>sp_assert_equals.sql</i>
+                - :page_facing_up: <i>sp_assert_no_equals.sql</i>
+                - :page_facing_up: <i>sp_show_result_test.sql</i>
             - :page_facing_up: <i>sp_exists_element.sql</i>
             - :page_facing_up: <i>sp_validate_cuit.sql</i>
 
