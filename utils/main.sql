@@ -13,7 +13,8 @@
    /sp/random/sp_date_random
    /sp/random/sp_letter_random
    /sp/random/sp_number_random
-   /sp/validation/sp_validate_test
+   /sp/validation/sp_asset_equals.sql
+   /sp/validation/sp_validate_cuit.sql
 */
 
 
