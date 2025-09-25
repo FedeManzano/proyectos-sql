@@ -12,18 +12,26 @@ GO
     SELECT @RES 
 */
 CREATE OR ALTER PROCEDURE [library].[sp_Str_letter_Random]
-@CANT_LETRAS INT, 
-@MAY INT = 1,
-@S_RES VARCHAR(MAX) = '' OUTPUT
+@CANT_LETRAS    INT, 
+@MAY            INT = 1,
+@S_RES          VARCHAR(MAX) = '' OUTPUT
 AS 
 BEGIN 
+    SET NOCOUNT ON
+
+    -- Validar parámetros de entrada
     IF  @CANT_LETRAS IS NULL    OR 
         @CANT_LETRAS <= 0   
         RETURN 0
     
+    --  Generar la cadena de letras random
     SET @S_RES = ''
+
+    --  Definir el conjunto de letras
     DECLARE @LETRAS VARCHAR(26) = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
+
+    -- Si el parámetro @MAY es distinto de 1, convertir las letras a minúsculas
     IF @MAY <> 1
         SET @LETRAS = LOWER(@LETRAS)
 
@@ -32,17 +40,14 @@ BEGIN
 
     WHILE @I < @CANT_LETRAS
     BEGIN 
+        -- Generar un índice aleatorio entre 1 y la longitud de la cadena de letras
         SET @INDEX = CAST((RAND() * LEN(@LETRAS) + 1 ) AS INT)
+
+        -- Concatenar la letra correspondiente al índice generado a la cadena resultado
         SET @S_RES = @S_RES + SUBSTRING(@LETRAS, @INDEX, 1)
+
+        -- Incrementar el contador
         SET @I = @I + 1
     END 
     RETURN 1 -- Para hacer las pruebas
 END
-
-/*
-DECLARE @PALABRA VARCHAR(30) = ''
-EXEC [db_utils].[library].[sp_Str_letter_Random] 11,0,@PALABRA OUTPUT 
-SELECT @PALABRA*/
-
-
-

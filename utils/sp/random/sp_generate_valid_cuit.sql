@@ -116,6 +116,8 @@ BEGIN
     
     -- Cerrar y liberar el cursor
     CLOSE CursorCohef
+
+    -- Liberar el cursor
     DEALLOCATE CursorCohef
 
     -- Calcular el dígito verificador y formar el CUIT completo

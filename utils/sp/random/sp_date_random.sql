@@ -17,21 +17,27 @@ USE db_utils
 */
 GO
 CREATE OR ALTER PROCEDURE [library].[sp_Date_Random]
-@FINI DATE,
-@DIGITOS_INTERVALO BIGINT = 3, -- cantidad de digitos del intervalo de fechas
-@FSAL DATE OUTPUT
+@FINI               DATE,
+@DIGITOS_INTERVALO  BIGINT = 3, -- cantidad de digitos del intervalo de fechas
+@FSAL               DATE OUTPUT
 AS 
 BEGIN 
+    SET NOCOUNT ON
+
+    --- Validar que la fecha de inicio sea una fecha válida
     DECLARE @RES_VAL INT = 
     CASE 
 		WHEN TRY_CONVERT(DATETIME, @FINI) IS NOT NULL THEN 1
 		ELSE 0
 	END 
 
+    --- Si la fecha no es válida, salir del procedimiento
     IF @RES_VAL = 0
         RETURN 0
     
+    -- Calcular el intervalo máximo en días basado en la cantidad de dígitos
     DECLARE @INTER INT = -1
+    
     EXEC @INTER = [db_utils].[library].[sp_Str_Number_Random] 0,9,@DIGITOS_INTERVALO,NULL 
     SET @FSAL = DATEADD(DAY, @INTER, @FINI)
 END
