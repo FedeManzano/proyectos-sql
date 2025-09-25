@@ -87,7 +87,7 @@ BEGIN
     IF @RES = @DIG_VER
     BEGIN 
         SET @RES    = 1
-        RETURN        1
+        RETURN        @DIG_VER
     END
     ELSE 
     BEGIN 
