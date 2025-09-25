@@ -1,5 +1,12 @@
 USE db_utils;
-
+/**
+    Procedimiento almacenado que muestra el resultado de un test
+    Parámetros:
+        @NRO_TEST INT: Número del test
+        @DESC_TEST NVARCHAR(MAX): Descripción del test
+        @RES BIT: Resultado del test (1 = OK, 0 = FAIL)
+    Autor: Federico Manzano
+*/
 GO
 CREATE OR ALTER PROCEDURE [library].[sp_Show_Result_Test]
 @NRO_TEST                   INT,

@@ -1,5 +1,10 @@
 USE db_utils
-
+/**
+    Procedimiento almacenado que formatea una cadena a formato título
+    Parámetros:
+        @CADENA VARCHAR(MAX) OUTPUT: Cadena a formatear (se modifica en el procedimiento)
+    Autor: Federico Manzano  
+*/
 GO
 CREATE OR ALTER PROCEDURE [library].[sp_Format_Title]
 @CADENA VARCHAR(MAX) OUTPUT

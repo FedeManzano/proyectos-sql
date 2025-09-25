@@ -1,5 +1,15 @@
 USE db_utils 
-
+/**
+    Procedimiento almacenado que verifica si existe un elemento en una tabla específica de una base de datos
+    Parámetros:
+        @N_DB NVARCHAR(MAX): Nombre de la base de datos
+        @N_SCH NVARCHAR(MAX): Nombre del esquema
+        @N_TABLA NVARCHAR(MAX): Nombre de la tabla
+        @N_CAMPO NVARCHAR(MAX): Nombre del campo a verificar
+        @PARAMETRO NVARCHAR(MAX): Valor del campo a buscar
+        @RETURN INT OUTPUT: Resultado de la verificación (1 = Existe, 0 = No existe, -1 = Error)
+    Autor: Federico Manzano
+*/  
 GO
 CREATE OR ALTER PROCEDURE [library].[sp_Exists_Element] 
 @N_DB       NVARCHAR(MAX),
