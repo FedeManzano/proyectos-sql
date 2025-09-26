@@ -3,12 +3,13 @@ USE db_utils
     Procedimiento almacenado para generar un cuit válido
     EJ 
     DECLARE @C VARCHAR(MAX) = ''
-    EXEC [db_utils].[library].[sp_Gen_Valid_CUIT] @C OUTPUT 
+    EXEC [db_utils].[library].[sp_Gen_Valid_CUIT] 0, @C OUTPUT 
     SELECT @C
 */
 GO
 CREATE OR ALTER PROCEDURE [library].[sp_Gen_Valid_CUIT]
-    @CUIT VARCHAR(MAX) = '' OUTPUT    
+    @FORMATO    INT = 0,  -- CON GUIONES 1 / 0 SIN GUIONES
+    @CUIT       VARCHAR(MAX) = '' OUTPUT -- SALIDA CUIT RANDOM
 AS
 BEGIN
     -- No mostrar mensajes de filas afectadas
@@ -81,7 +82,11 @@ BEGIN
     )
 
     -- Concatenar el prefijo y el DNI para formar el CUIT sin el dígito verificador
-    SET @CUIT_SIN_DV = @PREFIJO + @DNI    
+
+    IF @FORMATO = 1
+        SET @CUIT_SIN_DV = @PREFIJO + '-' +  @DNI    
+    ELSE 
+        SET @CUIT_SIN_DV = @PREFIJO +  @DNI    
 
     -- Calcular el dígito verificador
     DECLARE CursorCohef CURSOR FOR
@@ -127,8 +132,10 @@ BEGIN
     SET @CUIT   = 11 - @RES    
 
     -- Si el resultado es 11, el dígito verificador es 0
-    SET @CUIT   = @CUIT_SIN_DV + CAST(@RES AS VARCHAR(1))
-
+    IF @FORMATO = 1
+        SET @CUIT   = @CUIT_SIN_DV + '-' +CAST(@RES AS VARCHAR(1))
+    ELSE 
+        SET @CUIT   = @CUIT_SIN_DV + CAST(@RES AS VARCHAR(1))
     RETURN 1 -- Termina el procedimiento
 END
 

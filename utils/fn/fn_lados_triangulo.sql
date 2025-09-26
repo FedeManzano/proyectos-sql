@@ -8,7 +8,7 @@ USE db_utils
         @LADOC INT: Longitud del lado C 
     Retorna:
         INT: 0 = No es triángulo, 1 = Equilátero, 2 = Isósceles, 3 = Escaleno
-    Autor: ChatGPT  
+    Autor: Ferico Manzano  
 */
 GO
 CREATE OR ALTER FUNCTION [library].[fn_Es_Triangulo] (@LADOA INT, @LADOB INT, @LADOC INT)
