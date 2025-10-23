@@ -129,7 +129,12 @@ BEGIN
     SET @RES    = @SUM % 11
 
     -- Ajustar el dígito verificador según las reglas específicas
-    SET @CUIT   = 11 - @RES    
+    SET @RES = 11 - @RES    
+
+    IF @RES = 11
+        SET @RES = 2
+    IF @RES = 10
+        SET @RES = 1 
 
     -- Si el resultado es 11, el dígito verificador es 0
     IF @FORMATO = 1

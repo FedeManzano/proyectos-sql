@@ -1,9 +1,4 @@
 
-<p align='center'>
-    <img src="portada/portada.jpg" 
-    style="width: 470px; height: 310px; border-radius: 15px">
-</p>
-
 # :red_circle: Proyectos SQL
 
 ## Requisitos previos
