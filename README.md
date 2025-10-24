@@ -1,4 +1,8 @@
 
+<p align="center">
+    <img src="https://fotos.miarroba.com/th/e698/2A69A966262768FB35A22B68FB3594.webp" width="250px"/>
+</p>
+
 # :red_circle: Proyectos SQL
 
 ## Requisitos previos
